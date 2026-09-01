@@ -1,5 +1,14 @@
 [
   {
+    "slug": "2026-08-30-lvl",
+    "date": "2026-08-30",
+    "date_str": "30 août 2026",
+    "team_label": "LVL",
+    "season": "Saison 9 (active)",
+    "has_team": true,
+    "has_global": true
+  },
+  {
     "slug": "2026-08-24-lvl",
     "date": "2026-08-24",
     "date_str": "24 août 2026",

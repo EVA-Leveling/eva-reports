@@ -1,0 +1,264 @@
+<div class="viz-root">
+<style>
+:root{
+  --surface-1:#fcfcfb; --plane:#f4f3f0; --card:#ffffff;
+  --text-primary:#0b0b0b; --text-secondary:#52514e; --muted:#898781;
+  --grid:#e1e0d9; --axis:#c3c2b7; --border:rgba(11,11,11,.10);
+  --series-1:#2a78d6; --good:#0ca30c; --bad:#d03b3b;
+  --c-LVLxNephtis:#2a78d6;--c-LVLxRaisin:#1baf7a;--c-STLxElyuriz:#eda100;--c-LVLxVins20021:#008300;--c-TSxRaix:#2a78d6;--c-SRCLxSyrowx:#1baf7a;--c-WYRMxYronos:#eda100;--c-CSIxSop:#008300;
+}
+:root[data-theme="dark"], @media (prefers-color-scheme: dark){}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){
+  --surface-1:#1a1a19; --plane:#0d0d0d; --card:#161615;
+  --text-primary:#ffffff; --text-secondary:#c3c2b7; --muted:#898781;
+  --grid:#2c2c2a; --axis:#383835; --border:rgba(255,255,255,.10);
+  --series-1:#3987e5; --good:#0ca30c; --bad:#e66767;
+  --c-LVLxNephtis:#3987e5;--c-LVLxRaisin:#199e70;--c-STLxElyuriz:#c98500;--c-LVLxVins20021:#008300;--c-TSxRaix:#3987e5;--c-SRCLxSyrowx:#199e70;--c-WYRMxYronos:#c98500;--c-CSIxSop:#008300;
+}}
+:root[data-theme="dark"]{
+  --surface-1:#1a1a19; --plane:#0d0d0d; --card:#161615;
+  --text-primary:#ffffff; --text-secondary:#c3c2b7; --muted:#898781;
+  --grid:#2c2c2a; --axis:#383835; --border:rgba(255,255,255,.10);
+  --series-1:#3987e5; --good:#0ca30c; --bad:#e66767;
+  --c-LVLxNephtis:#3987e5;--c-LVLxRaisin:#199e70;--c-STLxElyuriz:#c98500;--c-LVLxVins20021:#008300;--c-TSxRaix:#3987e5;--c-SRCLxSyrowx:#199e70;--c-WYRMxYronos:#c98500;--c-CSIxSop:#008300;
+}
+*{box-sizing:border-box}
+.viz-root{font-family:system-ui,-apple-system,"Segoe UI",sans-serif;
+  color:var(--text-primary);background:var(--plane);
+  margin:0;padding:32px 20px 64px;line-height:1.5;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1040px;margin:0 auto}
+header.rep{margin-bottom:28px}
+.kicker{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:600}
+h1{font-size:30px;margin:6px 0 4px;font-weight:750;letter-spacing:-.01em}
+.sub{color:var(--text-secondary);font-size:15px}
+.sub b{color:var(--text-primary)}
+section{margin-top:40px}
+h2{font-size:19px;font-weight:700;margin:0 0 4px;letter-spacing:-.01em}
+.lead{color:var(--text-secondary);font-size:14px;margin:0 0 18px;max-width:70ch}
+.tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px}
+.tile{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:16px 18px}
+.tlab{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;font-weight:600}
+.tval{font-size:30px;font-weight:750;margin:6px 0 2px;letter-spacing:-.02em}
+.tval .u{font-size:15px;color:var(--muted);font-weight:600;margin:0 1px}
+.tsub{font-size:13px;color:var(--text-secondary)}
+.card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:22px 22px 18px}
+.chartwrap{overflow-x:auto}
+.chart{display:block;max-width:100%}
+table.stats{border-collapse:collapse;width:100%;font-size:13px;font-variant-numeric:tabular-nums}
+table.stats th,table.stats td{padding:9px 8px;text-align:right;white-space:nowrap;border-bottom:1px solid var(--border)}
+table.stats th{color:var(--muted);font-weight:600;font-size:11px;text-transform:uppercase;letter-spacing:.03em;
+  position:sticky;top:0;background:var(--card);cursor:help}
+table.stats th.pname,table.stats td.pname{text-align:left}
+table.stats td.pname{font-weight:650}
+table.stats tbody tr:hover{background:color-mix(in srgb,var(--series-1) 8%,transparent)}
+table.stats td.hl{font-weight:700;color:var(--text-primary)}
+.dot{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:8px;vertical-align:middle}
+.tblscroll{overflow-x:auto;border:1px solid var(--border);border-radius:14px;background:var(--card)}
+.legend{display:flex;gap:18px;flex-wrap:wrap;margin:0 0 14px;font-size:13px;color:var(--text-secondary)}
+.legend span{display:inline-flex;align-items:center;gap:7px}
+.legend i{width:22px;height:3px;border-radius:2px;display:inline-block}
+text.tick{fill:var(--muted);font:11px system-ui}
+text.axistitle{fill:var(--muted);font:12px system-ui}
+text.rowlabel{fill:var(--text-primary);font:600 13px system-ui}
+text.barval{fill:var(--text-secondary);font:700 13px system-ui;font-variant-numeric:tabular-nums}
+text.endlabel{font:700 12px system-ui}
+line.grid{stroke:var(--grid);stroke-width:1}
+line.axis{stroke:var(--axis);stroke-width:1;stroke-dasharray:3 3}
+circle[data-mvp]{stroke:var(--good);stroke-width:2.5}
+.mgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:14px}
+.mcard{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:14px 16px}
+.mhead{display:flex;justify-content:space-between;align-items:center}
+.gnum{font-weight:750;font-size:15px} .mtime{color:var(--muted);font-size:12px;margin-left:4px}
+.mmeta{color:var(--text-secondary);font-size:12.5px;margin:2px 0 6px}
+.mscore{font-size:16px;margin-bottom:10px} .mscore .vs{color:var(--muted);margin:0 4px}
+.badge{font-size:11px;font-weight:700;padding:3px 9px;border-radius:20px;letter-spacing:.04em}
+.badge.win{background:color-mix(in srgb,var(--good) 18%,transparent);color:var(--good)}
+.badge.loss{background:color-mix(in srgb,var(--bad) 18%,transparent);color:var(--bad)}
+.badge.draw{background:var(--grid);color:var(--text-secondary)}
+table.mini{border-collapse:collapse;width:100%;font-size:12.5px;font-variant-numeric:tabular-nums}
+table.mini th{color:var(--muted);font-weight:600;font-size:10.5px;text-transform:uppercase;text-align:right;padding:4px 5px;border-bottom:1px solid var(--border)}
+table.mini td{text-align:right;padding:5px;border-bottom:1px solid var(--border)}
+table.mini th:first-child,table.mini td.pn{text-align:left}
+.mvpchip{background:var(--good);color:#fff;font-size:9px;font-weight:700;padding:1px 5px;border-radius:4px;margin-left:6px;vertical-align:middle}
+.method{font-size:13px;color:var(--text-secondary);background:var(--card);border:1px solid var(--border);border-radius:14px;padding:18px 20px}
+.method h3{font-size:14px;margin:0 0 8px;color:var(--text-primary)}
+.method code{background:var(--plane);padding:1px 6px;border-radius:5px;font-size:12px}
+.method dl{display:grid;grid-template-columns:auto 1fr;gap:4px 14px;margin:6px 0 0}
+.method dt{font-weight:700;color:var(--text-primary)}
+footer{margin-top:36px;color:var(--muted);font-size:12px;text-align:center}
+@media print{.viz-root{background:#fff;padding:0} .card,.tile,.mcard,.method,.tblscroll{break-inside:avoid}
+  section{break-inside:avoid} }
+</style>
+
+<div class="wrap">
+<header class="rep">
+  <div class="kicker">EVA · Battle Arena — Rapport de performance</div>
+  <h1>Équipe Escouade — journée du 30 août 2026</h1>
+  <p class="sub">Profil de référence <b>LVLxRaisin</b> · Saison 9 (active) ·
+     <b>10</b> parties · roster : <b>LVLxNephtis, LVLxRaisin, STLxElyuriz, LVLxVins20021, TSxRaix, SRCLxSyrowx, WYRMxYronos, CSIxSop</b></p>
+  
+</header>
+
+<section>
+  <h2>Vue d'ensemble de l'équipe</h2>
+  <p class="lead">Synthèse de la journée : 10 parties en mode Domination, bilan 4V–5D.</p>
+  <div class="tiles"><div class="tile"><div class="tlab">Parties</div><div class="tval">10</div><div class="tsub">matchs joués le 30 août 2026</div></div><div class="tile"><div class="tlab">Bilan</div><div class="tval">4<span class="u">V</span>–5<span class="u">D</span></div><div class="tsub">40% de victoires</div></div><div class="tile"><div class="tlab">Kills équipe</div><div class="tval">350</div><div class="tsub">35.0 / partie</div></div><div class="tile"><div class="tlab">K/D équipe</div><div class="tval">0.90</div><div class="tsub">350K / 387D</div></div><div class="tile"><div class="tlab">Top fragger</div><div class="tval">Nephtis</div><div class="tsub">104 kills</div></div><div class="tile"><div class="tlab">Meilleur K/D</div><div class="tval">Nephtis</div><div class="tsub">1.22 ratio</div></div></div>
+</section>
+
+<section>
+  <h2>Statistiques complètes par joueur</h2>
+  <p class="lead">Toutes les métriques disponibles agrégées sur les 10 parties du jour. Trié par score cumulé décroissant.
+     Survolez un en-tête de colonne pour sa définition.</p>
+  <div class="tblscroll"><table class="stats"><thead><tr><th class="pname">Joueur</th><th title="Parties jouées">G</th><th title="Éliminations (kills)">K</th><th title="Morts (deaths)">D</th><th title="Assists">A</th><th title="Ratio kills / morts">K/D</th><th title="(K+A) / morts">KDA</th><th title="Kills moyens par partie">K/partie</th><th title="Morts moyennes par partie">D/partie</th><th title="Assists moyens par partie">A/partie</th><th title="Score cumulé sur la journée">Score</th><th title="Score moyen par partie">Score/partie</th><th title="Part des kills de l&#x27;équipe">% kills équipe</th><th title="% de victoires">Winrate %</th><th title="Nombre de fois MVP du match">MVP</th><th title="Classement moyen dans la partie (1=meilleur)">Rang moy.</th><th title="Meilleur total de kills en une partie">Best K</th><th title="Meilleur score en une partie">Best Score</th></tr></thead><tbody><tr><td class="pname"><span class="dot" style="background:var(--c-LVLxNephtis)"></span>LVLxNephtis</td><td>10</td><td>104</td><td>85</td><td>20</td><td class="hl">1.22</td><td class="hl">1.46</td><td>10.40</td><td>8.50</td><td>2.00</td><td class="hl">7 224</td><td>722.40</td><td>30%</td><td class="hl">40%</td><td>0</td><td>1.50</td><td>14</td><td>950</td></tr><tr><td class="pname"><span class="dot" style="background:var(--c-LVLxRaisin)"></span>LVLxRaisin</td><td>10</td><td>81</td><td>101</td><td>16</td><td class="hl">0.80</td><td class="hl">0.96</td><td>8.10</td><td>10.10</td><td>1.60</td><td class="hl">6 363</td><td>636.30</td><td>23%</td><td class="hl">40%</td><td>1</td><td>2.20</td><td>13</td><td>1 025</td></tr><tr><td class="pname"><span class="dot" style="background:var(--c-STLxElyuriz)"></span>STLxElyuriz</td><td>10</td><td>69</td><td>79</td><td>13</td><td class="hl">0.87</td><td class="hl">1.04</td><td>6.90</td><td>7.90</td><td>1.30</td><td class="hl">5 025</td><td>502.50</td><td>20%</td><td class="hl">40%</td><td>1</td><td>3.10</td><td>13</td><td>925</td></tr><tr><td class="pname"><span class="dot" style="background:var(--c-LVLxVins20021)"></span>LVLxVins20021</td><td>10</td><td>53</td><td>77</td><td>21</td><td class="hl">0.69</td><td class="hl">0.96</td><td>5.30</td><td>7.70</td><td>2.10</td><td class="hl">4 262</td><td>426.20</td><td>15%</td><td class="hl">40%</td><td>0</td><td>3.90</td><td>10</td><td>600</td></tr><tr><td class="pname"><span class="dot" style="background:var(--c-TSxRaix)"></span>TSxRaix</td><td>1</td><td>13</td><td>12</td><td>0</td><td class="hl">1.08</td><td class="hl">1.08</td><td>13.00</td><td>12.00</td><td>0.00</td><td class="hl">675</td><td>675.00</td><td>4%</td><td class="hl">100%</td><td>1</td><td>1.00</td><td>13</td><td>675</td></tr><tr><td class="pname"><span class="dot" style="background:var(--c-SRCLxSyrowx)"></span>SRCLxSyrowx</td><td>1</td><td>11</td><td>9</td><td>0</td><td class="hl">1.22</td><td class="hl">1.22</td><td>11.00</td><td>9.00</td><td>0.00</td><td class="hl">625</td><td>625.00</td><td>3%</td><td class="hl">0%</td><td>0</td><td>4.00</td><td>11</td><td>625</td></tr><tr><td class="pname"><span class="dot" style="background:var(--c-WYRMxYronos)"></span>WYRMxYronos</td><td>1</td><td>11</td><td>12</td><td>0</td><td class="hl">0.92</td><td class="hl">0.92</td><td>11.00</td><td>12.00</td><td>0.00</td><td class="hl">575</td><td>575.00</td><td>3%</td><td class="hl">0%</td><td>0</td><td>6.00</td><td>11</td><td>575</td></tr><tr><td class="pname"><span class="dot" style="background:var(--c-CSIxSop)"></span>CSIxSop</td><td>1</td><td>8</td><td>12</td><td>0</td><td class="hl">0.67</td><td class="hl">0.67</td><td>8.00</td><td>12.00</td><td>0.00</td><td class="hl">400</td><td>400.00</td><td>2%</td><td class="hl">0%</td><td>0</td><td>8.00</td><td>8</td><td>400</td></tr></tbody></table></div>
+</section>
+
+<section>
+  <h2>Score cumulé sur la journée</h2>
+  <p class="lead">Contribution totale au score sur les 10 parties (points EVA).</p>
+  <div class="card chartwrap"><svg viewBox="0 0 720 408" width="100%" preserveAspectRatio="xMidYMid meet" role="img" class="chart scorechart" xmlns="http://www.w3.org/2000/svg"><text x="12" y="48" class="rowlabel">LVLxNephtis</text><rect x="220" y="30" width="430.0" height="24" rx="4" fill="var(--series-1)"><title>LVLxNephtis — 7224 pts (722.4/game)</title></rect><text x="658.0" y="47" class="barval" text-anchor="start">7 224</text><text x="12" y="94" class="rowlabel">LVLxRaisin</text><rect x="220" y="76" width="378.8" height="24" rx="4" fill="var(--series-1)"><title>LVLxRaisin — 6363 pts (636.3/game)</title></rect><text x="606.8" y="93" class="barval" text-anchor="start">6 363</text><text x="12" y="140" class="rowlabel">STLxElyuriz</text><rect x="220" y="122" width="299.1" height="24" rx="4" fill="var(--series-1)"><title>STLxElyuriz — 5025 pts (502.5/game)</title></rect><text x="527.1" y="139" class="barval" text-anchor="start">5 025</text><text x="12" y="186" class="rowlabel">LVLxVins20021</text><rect x="220" y="168" width="253.7" height="24" rx="4" fill="var(--series-1)"><title>LVLxVins20021 — 4262 pts (426.2/game)</title></rect><text x="481.7" y="185" class="barval" text-anchor="start">4 262</text><text x="12" y="232" class="rowlabel">TSxRaix</text><rect x="220" y="214" width="40.2" height="24" rx="4" fill="var(--series-1)"><title>TSxRaix — 675 pts (675.0/game)</title></rect><text x="268.2" y="231" class="barval" text-anchor="start">675</text><text x="12" y="278" class="rowlabel">SRCLxSyrowx</text><rect x="220" y="260" width="37.2" height="24" rx="4" fill="var(--series-1)"><title>SRCLxSyrowx — 625 pts (625.0/game)</title></rect><text x="265.2" y="277" class="barval" text-anchor="start">625</text><text x="12" y="324" class="rowlabel">WYRMxYronos</text><rect x="220" y="306" width="34.2" height="24" rx="4" fill="var(--series-1)"><title>WYRMxYronos — 575 pts (575.0/game)</title></rect><text x="262.2" y="323" class="barval" text-anchor="start">575</text><text x="12" y="370" class="rowlabel">CSIxSop</text><rect x="220" y="352" width="23.8" height="24" rx="4" fill="var(--series-1)"><title>CSIxSop — 400 pts (400.0/game)</title></rect><text x="251.8" y="369" class="barval" text-anchor="start">400</text></svg></div>
+</section>
+
+<section>
+  <h2>Ratio Kills / Morts — au-dessus ou en dessous de l'équilibre</h2>
+  <p class="lead">Écart au ratio 1.0. À droite (vert) = plus de kills que de morts ; à gauche (rouge) = l'inverse.</p>
+  <div class="card chartwrap"><svg viewBox="0 0 720 428" width="100%" preserveAspectRatio="xMidYMid meet" role="img" class="chart kdchart" xmlns="http://www.w3.org/2000/svg"><line x1="450.0" y1="40" x2="450.0" y2="412" class="axis"/><text x="450.0" y="30" class="tick" text-anchor="middle">K/D = 1.0</text><text x="12" y="70" class="rowlabel">LVLxNephtis</text><rect x="450.0" y="52" width="101.2" height="24" rx="4" fill="var(--good)"><title>LVLxNephtis — K/D 1.22</title></rect><text x="559.2" y="69" class="barval" text-anchor="start">1.22</text><text x="12" y="116" class="rowlabel">LVLxRaisin</text><rect x="358.0" y="98" width="92.0" height="24" rx="4" fill="var(--bad)"><title>LVLxRaisin — K/D 0.8</title></rect><text x="350.0" y="115" class="barval" text-anchor="end">0.80</text><text x="12" y="162" class="rowlabel">STLxElyuriz</text><rect x="390.2" y="144" width="59.8" height="24" rx="4" fill="var(--bad)"><title>STLxElyuriz — K/D 0.87</title></rect><text x="382.2" y="161" class="barval" text-anchor="end">0.87</text><text x="12" y="208" class="rowlabel">LVLxVins20021</text><rect x="307.4" y="190" width="142.6" height="24" rx="4" fill="var(--bad)"><title>LVLxVins20021 — K/D 0.69</title></rect><text x="299.4" y="207" class="barval" text-anchor="end">0.69</text><text x="12" y="254" class="rowlabel">TSxRaix</text><rect x="450.0" y="236" width="36.8" height="24" rx="4" fill="var(--good)"><title>TSxRaix — K/D 1.08</title></rect><text x="494.8" y="253" class="barval" text-anchor="start">1.08</text><text x="12" y="300" class="rowlabel">SRCLxSyrowx</text><rect x="450.0" y="282" width="101.2" height="24" rx="4" fill="var(--good)"><title>SRCLxSyrowx — K/D 1.22</title></rect><text x="559.2" y="299" class="barval" text-anchor="start">1.22</text><text x="12" y="346" class="rowlabel">WYRMxYronos</text><rect x="413.2" y="328" width="36.8" height="24" rx="4" fill="var(--bad)"><title>WYRMxYronos — K/D 0.92</title></rect><text x="405.2" y="345" class="barval" text-anchor="end">0.92</text><text x="12" y="392" class="rowlabel">CSIxSop</text><rect x="298.2" y="374" width="151.8" height="24" rx="4" fill="var(--bad)"><title>CSIxSop — K/D 0.67</title></rect><text x="290.2" y="391" class="barval" text-anchor="end">0.67</text></svg></div>
+</section>
+
+<section>
+  <h2>Progression du score, partie par partie</h2>
+  <p class="lead">Score de chaque joueur au fil des 10 parties. Un anneau vert autour d'un point signale un titre de MVP.</p>
+  <div class="legend"><span><i style="background:var(--c-LVLxNephtis)"></i>LVLxNephtis</span><span><i style="background:var(--c-LVLxRaisin)"></i>LVLxRaisin</span><span><i style="background:var(--c-STLxElyuriz)"></i>STLxElyuriz</span><span><i style="background:var(--c-LVLxVins20021)"></i>LVLxVins20021</span><span><i style="background:var(--c-TSxRaix)"></i>TSxRaix</span><span><i style="background:var(--c-SRCLxSyrowx)"></i>SRCLxSyrowx</span><span><i style="background:var(--c-WYRMxYronos)"></i>WYRMxYronos</span><span><i style="background:var(--c-CSIxSop)"></i>CSIxSop</span></div>
+  <div class="card chartwrap"><svg viewBox="0 0 760 380" width="100%" preserveAspectRatio="xMidYMid meet" role="img" class="chart linechart" xmlns="http://www.w3.org/2000/svg"><line x1="46" y1="340.0" x2="610" y2="340.0" class="grid"/><text x="38" y="344.0" class="tick" text-anchor="end">0</text><line x1="46" y1="268.2" x2="610" y2="268.2" class="grid"/><text x="38" y="272.2" class="tick" text-anchor="end">250</text><line x1="46" y1="196.4" x2="610" y2="196.4" class="grid"/><text x="38" y="200.4" class="tick" text-anchor="end">500</text><line x1="46" y1="124.5" x2="610" y2="124.5" class="grid"/><text x="38" y="128.5" class="tick" text-anchor="end">750</text><line x1="46" y1="52.7" x2="610" y2="52.7" class="grid"/><text x="38" y="56.7" class="tick" text-anchor="end">1000</text><text x="46.0" y="364" class="tick" text-anchor="middle">G1</text><text x="108.7" y="364" class="tick" text-anchor="middle">G2</text><text x="171.3" y="364" class="tick" text-anchor="middle">G3</text><text x="234.0" y="364" class="tick" text-anchor="middle">G4</text><text x="296.7" y="364" class="tick" text-anchor="middle">G5</text><text x="359.3" y="364" class="tick" text-anchor="middle">G6</text><text x="422.0" y="364" class="tick" text-anchor="middle">G7</text><text x="484.7" y="364" class="tick" text-anchor="middle">G8</text><text x="547.3" y="364" class="tick" text-anchor="middle">G9</text><text x="610.0" y="364" class="tick" text-anchor="middle">G10</text><text x="328.0" y="378" class="axistitle" text-anchor="middle">Match (chronologique)</text><path d="M46.0 74.3 L108.7 203.5 L171.3 67.1 L234.0 103.0 L296.7 217.9 L359.3 167.6 L422.0 138.9 L484.7 81.7 L547.3 124.5 L610.0 146.1" fill="none" stroke="var(--c-LVLxNephtis)" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/><circle cx="46.0" cy="74.3" r="4" fill="var(--c-LVLxNephtis)" stroke="var(--surface-1)" stroke-width="2"><title>LVLxNephtis — G1: 925 pts, 13/12/4 (Victory)</title></circle><circle cx="108.7" cy="203.5" r="4" fill="var(--c-LVLxNephtis)" stroke="var(--surface-1)" stroke-width="2"><title>LVLxNephtis — G2: 475 pts, 8/6/0 (Defeat)</title></circle><circle cx="171.3" cy="67.1" r="4" fill="var(--c-LVLxNephtis)" stroke="var(--surface-1)" stroke-width="2"><title>LVLxNephtis — G3: 950 pts, 12/9/4 (Victory)</title></circle><circle cx="234.0" cy="103.0" r="4" fill="var(--c-LVLxNephtis)" stroke="var(--surface-1)" stroke-width="2"><title>LVLxNephtis — G4: 825 pts, 10/5/1 (Victory)</title></circle><circle cx="296.7" cy="217.9" r="4" fill="var(--c-LVLxNephtis)" stroke="var(--surface-1)" stroke-width="2"><title>LVLxNephtis — G5: 425 pts, 6/10/3 (Defeat)</title></circle><circle cx="359.3" cy="167.6" r="4" fill="var(--c-LVLxNephtis)" stroke="var(--surface-1)" stroke-width="2"><title>LVLxNephtis — G6: 600 pts, 9/8/2 (Defeat)</title></circle><circle cx="422.0" cy="138.9" r="4" fill="var(--c-LVLxNephtis)" stroke="var(--surface-1)" stroke-width="2"><title>LVLxNephtis — G7: 700 pts, 9/7/1 (Defeat)</title></circle><circle cx="484.7" cy="81.7" r="4" fill="var(--c-LVLxNephtis)" stroke="var(--surface-1)" stroke-width="2"><title>LVLxNephtis — G8: 899 pts, 14/10/1 (Defeat)</title></circle><circle cx="547.3" cy="124.5" r="4" fill="var(--c-LVLxNephtis)" stroke="var(--surface-1)" stroke-width="2"><title>LVLxNephtis — G9: 750 pts, 11/5/4 (Victory)</title></circle><circle cx="610.0" cy="146.1" r="4" fill="var(--c-LVLxNephtis)" stroke="var(--surface-1)" stroke-width="2"><title>LVLxNephtis — G10: 675 pts, 12/13/0 (Defeat)</title></circle><text x="620.0" y="150.1" class="endlabel" fill="var(--c-LVLxNephtis)">LVLxNephtis</text><path d="M46.0 138.9 L108.7 246.6 L171.3 124.5 L234.0 232.3 L296.7 146.1 L359.3 239.5 L422.0 153.3 L484.7 99.3 L547.3 45.5 L610.0 146.1" fill="none" stroke="var(--c-LVLxRaisin)" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/><circle cx="46.0" cy="138.9" r="4" fill="var(--c-LVLxRaisin)" stroke="var(--surface-1)" stroke-width="2"><title>LVLxRaisin — G1: 700 pts, 8/12/1 (Victory)</title></circle><circle cx="108.7" cy="246.6" r="4" fill="var(--c-LVLxRaisin)" stroke="var(--surface-1)" stroke-width="2"><title>LVLxRaisin — G2: 325 pts, 4/9/1 (Defeat)</title></circle><circle cx="171.3" cy="124.5" r="4" fill="var(--c-LVLxRaisin)" stroke="var(--surface-1)" stroke-width="2"><title>LVLxRaisin — G3: 750 pts, 8/12/3 (Victory)</title></circle><circle cx="234.0" cy="232.3" r="4" fill="var(--c-LVLxRaisin)" stroke="var(--surface-1)" stroke-width="2"><title>LVLxRaisin — G4: 375 pts, 3/8/1 (Victory)</title></circle><circle cx="296.7" cy="146.1" r="4" fill="var(--c-LVLxRaisin)" stroke="var(--surface-1)" stroke-width="2"><title>LVLxRaisin — G5: 675 pts, 10/10/1 (Defeat)</title></circle><circle cx="359.3" cy="239.5" r="4" fill="var(--c-LVLxRaisin)" stroke="var(--surface-1)" stroke-width="2"><title>LVLxRaisin — G6: 350 pts, 5/10/4 (Defeat)</title></circle><circle cx="422.0" cy="153.3" r="4" fill="var(--c-LVLxRaisin)" stroke="var(--surface-1)" stroke-width="2"><title>LVLxRaisin — G7: 650 pts, 8/11/2 (Defeat)</title></circle><circle cx="484.7" cy="99.3" r="4" fill="var(--c-LVLxRaisin)" stroke="var(--surface-1)" stroke-width="2"><title>LVLxRaisin — G8: 838 pts, 10/11/2 (Defeat)</title></circle><circle cx="547.3" cy="45.5" r="4" fill="var(--c-LVLxRaisin)" stroke="var(--surface-1)" stroke-width="2" data-mvp="1"><title>LVLxRaisin — G9: 1025 pts, 13/7/1 (Victory)</title></circle><circle cx="610.0" cy="146.1" r="4" fill="var(--c-LVLxRaisin)" stroke="var(--surface-1)" stroke-width="2"><title>LVLxRaisin — G10: 675 pts, 12/11/0 (Defeat)</title></circle><text x="620.0" y="150.1" class="endlabel" fill="var(--c-LVLxRaisin)">LVLxRaisin</text><path d="M46.0 131.7 L108.7 253.8 L171.3 131.7 L234.0 74.3 L296.7 217.9 L359.3 268.2 L422.0 253.8 L484.7 261.0 L547.3 182.0 L610.0 182.0" fill="none" stroke="var(--c-STLxElyuriz)" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/><circle cx="46.0" cy="131.7" r="4" fill="var(--c-STLxElyuriz)" stroke="var(--surface-1)" stroke-width="2"><title>STLxElyuriz — G1: 725 pts, 7/8/2 (Victory)</title></circle><circle cx="108.7" cy="253.8" r="4" fill="var(--c-STLxElyuriz)" stroke="var(--surface-1)" stroke-width="2"><title>STLxElyuriz — G2: 300 pts, 4/9/0 (Defeat)</title></circle><circle cx="171.3" cy="131.7" r="4" fill="var(--c-STLxElyuriz)" stroke="var(--surface-1)" stroke-width="2"><title>STLxElyuriz — G3: 725 pts, 9/8/2 (Victory)</title></circle><circle cx="234.0" cy="74.3" r="4" fill="var(--c-STLxElyuriz)" stroke="var(--surface-1)" stroke-width="2" data-mvp="1"><title>STLxElyuriz — G4: 925 pts, 13/3/0 (Victory)</title></circle><circle cx="296.7" cy="217.9" r="4" fill="var(--c-STLxElyuriz)" stroke="var(--surface-1)" stroke-width="2"><title>STLxElyuriz — G5: 425 pts, 5/8/1 (Defeat)</title></circle><circle cx="359.3" cy="268.2" r="4" fill="var(--c-STLxElyuriz)" stroke="var(--surface-1)" stroke-width="2"><title>STLxElyuriz — G6: 250 pts, 3/9/4 (Defeat)</title></circle><circle cx="422.0" cy="253.8" r="4" fill="var(--c-STLxElyuriz)" stroke="var(--surface-1)" stroke-width="2"><title>STLxElyuriz — G7: 300 pts, 5/8/1 (Defeat)</title></circle><circle cx="484.7" cy="261.0" r="4" fill="var(--c-STLxElyuriz)" stroke="var(--surface-1)" stroke-width="2"><title>STLxElyuriz — G8: 275 pts, 5/11/0 (Defeat)</title></circle><circle cx="547.3" cy="182.0" r="4" fill="var(--c-STLxElyuriz)" stroke="var(--surface-1)" stroke-width="2"><title>STLxElyuriz — G9: 550 pts, 7/4/3 (Victory)</title></circle><circle cx="610.0" cy="182.0" r="4" fill="var(--c-STLxElyuriz)" stroke="var(--surface-1)" stroke-width="2"><title>STLxElyuriz — G10: 550 pts, 11/11/0 (Defeat)</title></circle><text x="620.0" y="186.0" class="endlabel" fill="var(--c-STLxElyuriz)">STLxElyuriz</text><path d="M46.0 167.6 L108.7 261.0 L171.3 189.2 L234.0 210.7 L296.7 261.0 L359.3 182.0 L422.0 239.5 L484.7 279.1 L547.3 196.4 L610.0 189.2" fill="none" stroke="var(--c-LVLxVins20021)" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/><circle cx="46.0" cy="167.6" r="4" fill="var(--c-LVLxVins20021)" stroke="var(--surface-1)" stroke-width="2"><title>LVLxVins20021 — G1: 600 pts, 6/8/1 (Victory)</title></circle><circle cx="108.7" cy="261.0" r="4" fill="var(--c-LVLxVins20021)" stroke="var(--surface-1)" stroke-width="2"><title>LVLxVins20021 — G2: 275 pts, 4/8/1 (Defeat)</title></circle><circle cx="171.3" cy="189.2" r="4" fill="var(--c-LVLxVins20021)" stroke="var(--surface-1)" stroke-width="2"><title>LVLxVins20021 — G3: 525 pts, 4/9/5 (Victory)</title></circle><circle cx="234.0" cy="210.7" r="4" fill="var(--c-LVLxVins20021)" stroke="var(--surface-1)" stroke-width="2"><title>LVLxVins20021 — G4: 450 pts, 7/6/3 (Victory)</title></circle><circle cx="296.7" cy="261.0" r="4" fill="var(--c-LVLxVins20021)" stroke="var(--surface-1)" stroke-width="2"><title>LVLxVins20021 — G5: 275 pts, 4/9/2 (Defeat)</title></circle><circle cx="359.3" cy="182.0" r="4" fill="var(--c-LVLxVins20021)" stroke="var(--surface-1)" stroke-width="2"><title>LVLxVins20021 — G6: 550 pts, 8/7/2 (Defeat)</title></circle><circle cx="422.0" cy="239.5" r="4" fill="var(--c-LVLxVins20021)" stroke="var(--surface-1)" stroke-width="2"><title>LVLxVins20021 — G7: 350 pts, 4/7/3 (Defeat)</title></circle><circle cx="484.7" cy="279.1" r="4" fill="var(--c-LVLxVins20021)" stroke="var(--surface-1)" stroke-width="2"><title>LVLxVins20021 — G8: 212 pts, 1/10/0 (Defeat)</title></circle><circle cx="547.3" cy="196.4" r="4" fill="var(--c-LVLxVins20021)" stroke="var(--surface-1)" stroke-width="2"><title>LVLxVins20021 — G9: 500 pts, 5/5/4 (Victory)</title></circle><circle cx="610.0" cy="189.2" r="4" fill="var(--c-LVLxVins20021)" stroke="var(--surface-1)" stroke-width="2"><title>LVLxVins20021 — G10: 525 pts, 10/8/0 (Defeat)</title></circle><text x="620.0" y="193.2" class="endlabel" fill="var(--c-LVLxVins20021)">LVLxVins20021</text><path d="M610.0 146.1" fill="none" stroke="var(--c-TSxRaix)" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/><circle cx="610.0" cy="146.1" r="4" fill="var(--c-TSxRaix)" stroke="var(--surface-1)" stroke-width="2" data-mvp="1"><title>TSxRaix — G10: 675 pts, 13/12/0 (Victory)</title></circle><text x="620.0" y="150.1" class="endlabel" fill="var(--c-TSxRaix)">TSxRaix</text><path d="M610.0 160.5" fill="none" stroke="var(--c-SRCLxSyrowx)" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/><circle cx="610.0" cy="160.5" r="4" fill="var(--c-SRCLxSyrowx)" stroke="var(--surface-1)" stroke-width="2"><title>SRCLxSyrowx — G10: 625 pts, 11/9/0 (Defeat)</title></circle><text x="620.0" y="164.5" class="endlabel" fill="var(--c-SRCLxSyrowx)">SRCLxSyrowx</text><path d="M610.0 174.8" fill="none" stroke="var(--c-WYRMxYronos)" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/><circle cx="610.0" cy="174.8" r="4" fill="var(--c-WYRMxYronos)" stroke="var(--surface-1)" stroke-width="2"><title>WYRMxYronos — G10: 575 pts, 11/12/0 (Defeat)</title></circle><text x="620.0" y="178.8" class="endlabel" fill="var(--c-WYRMxYronos)">WYRMxYronos</text><path d="M610.0 225.1" fill="none" stroke="var(--c-CSIxSop)" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/><circle cx="610.0" cy="225.1" r="4" fill="var(--c-CSIxSop)" stroke="var(--surface-1)" stroke-width="2"><title>CSIxSop — G10: 400 pts, 8/12/0 (Defeat)</title></circle><text x="620.0" y="229.1" class="endlabel" fill="var(--c-CSIxSop)">CSIxSop</text></svg></div>
+</section>
+
+<section>
+  <h2>Détail des parties</h2>
+  <p class="lead">Résultat, carte et performance individuelle de chaque joueur de l'équipe, partie par partie.</p>
+  <div class="mgrid"><div class="mcard">
+          <div class="mhead">
+            <div><span class="gnum">G1</span> <span class="mtime">14:59</span></div>
+            <span class="badge win">VICTOIRE</span>
+          </div>
+          <div class="mmeta">Domination · Atlantis</div>
+          <div class="mscore"><b>ALLIANCE</b> 100
+              <span class="vs">–</span> 82 <b>REBELS</b></div>
+          <table class="mini"><thead><tr><th>Joueur</th><th>K</th><th>D</th><th>A</th><th>K/D</th><th>Score</th><th>Rang</th></tr></thead>
+          <tbody><tr><td class="pn">LVLxNephtis</td><td>13</td><td>12</td><td>4</td><td>1.08</td><td>925</td><td>#1</td></tr><tr><td class="pn">STLxElyuriz</td><td>7</td><td>8</td><td>2</td><td>0.88</td><td>725</td><td>#2</td></tr><tr><td class="pn">LVLxRaisin</td><td>8</td><td>12</td><td>1</td><td>0.67</td><td>700</td><td>#3</td></tr><tr><td class="pn">LVLxVins20021</td><td>6</td><td>8</td><td>1</td><td>0.75</td><td>600</td><td>#4</td></tr></tbody></table>
+        </div><div class="mcard">
+          <div class="mhead">
+            <div><span class="gnum">G2</span> <span class="mtime">15:06</span></div>
+            <span class="badge loss">DÉFAITE</span>
+          </div>
+          <div class="mmeta">Domination · Ceres</div>
+          <div class="mscore"><b>ALLIANCE</b> 45
+              <span class="vs">–</span> 100 <b>REBELS</b></div>
+          <table class="mini"><thead><tr><th>Joueur</th><th>K</th><th>D</th><th>A</th><th>K/D</th><th>Score</th><th>Rang</th></tr></thead>
+          <tbody><tr><td class="pn">LVLxNephtis</td><td>8</td><td>6</td><td>0</td><td>1.33</td><td>475</td><td>#1</td></tr><tr><td class="pn">LVLxRaisin</td><td>4</td><td>9</td><td>1</td><td>0.44</td><td>325</td><td>#2</td></tr><tr><td class="pn">STLxElyuriz</td><td>4</td><td>9</td><td>0</td><td>0.44</td><td>300</td><td>#3</td></tr><tr><td class="pn">LVLxVins20021</td><td>4</td><td>8</td><td>1</td><td>0.50</td><td>275</td><td>#4</td></tr></tbody></table>
+        </div><div class="mcard">
+          <div class="mhead">
+            <div><span class="gnum">G3</span> <span class="mtime">15:14</span></div>
+            <span class="badge win">VICTOIRE</span>
+          </div>
+          <div class="mmeta">Domination · Engine</div>
+          <div class="mscore"><b>ALLIANCE</b> 100
+              <span class="vs">–</span> 99 <b>REBELS</b></div>
+          <table class="mini"><thead><tr><th>Joueur</th><th>K</th><th>D</th><th>A</th><th>K/D</th><th>Score</th><th>Rang</th></tr></thead>
+          <tbody><tr><td class="pn">LVLxNephtis</td><td>12</td><td>9</td><td>4</td><td>1.33</td><td>950</td><td>#1</td></tr><tr><td class="pn">LVLxRaisin</td><td>8</td><td>12</td><td>3</td><td>0.67</td><td>750</td><td>#2</td></tr><tr><td class="pn">STLxElyuriz</td><td>9</td><td>8</td><td>2</td><td>1.12</td><td>725</td><td>#3</td></tr><tr><td class="pn">LVLxVins20021</td><td>4</td><td>9</td><td>5</td><td>0.44</td><td>525</td><td>#4</td></tr></tbody></table>
+        </div><div class="mcard">
+          <div class="mhead">
+            <div><span class="gnum">G4</span> <span class="mtime">15:21</span></div>
+            <span class="badge win">VICTOIRE</span>
+          </div>
+          <div class="mmeta">Domination · Polaris</div>
+          <div class="mscore"><b>ALLIANCE</b> 100
+              <span class="vs">–</span> 58 <b>REBELS</b></div>
+          <table class="mini"><thead><tr><th>Joueur</th><th>K</th><th>D</th><th>A</th><th>K/D</th><th>Score</th><th>Rang</th></tr></thead>
+          <tbody><tr><td class="pn">STLxElyuriz<span class="mvpchip">MVP</span></td><td>13</td><td>3</td><td>0</td><td>4.33</td><td>925</td><td>#1</td></tr><tr><td class="pn">LVLxNephtis</td><td>10</td><td>5</td><td>1</td><td>2.00</td><td>825</td><td>#2</td></tr><tr><td class="pn">LVLxVins20021</td><td>7</td><td>6</td><td>3</td><td>1.17</td><td>450</td><td>#3</td></tr><tr><td class="pn">LVLxRaisin</td><td>3</td><td>8</td><td>1</td><td>0.38</td><td>375</td><td>#4</td></tr></tbody></table>
+        </div><div class="mcard">
+          <div class="mhead">
+            <div><span class="gnum">G5</span> <span class="mtime">15:29</span></div>
+            <span class="badge loss">DÉFAITE</span>
+          </div>
+          <div class="mmeta">Domination · Reef Point</div>
+          <div class="mscore"><b>ALLIANCE</b> 46
+              <span class="vs">–</span> 100 <b>REBELS</b></div>
+          <table class="mini"><thead><tr><th>Joueur</th><th>K</th><th>D</th><th>A</th><th>K/D</th><th>Score</th><th>Rang</th></tr></thead>
+          <tbody><tr><td class="pn">LVLxRaisin</td><td>10</td><td>10</td><td>1</td><td>1.00</td><td>675</td><td>#1</td></tr><tr><td class="pn">LVLxNephtis</td><td>6</td><td>10</td><td>3</td><td>0.60</td><td>425</td><td>#2</td></tr><tr><td class="pn">STLxElyuriz</td><td>5</td><td>8</td><td>1</td><td>0.62</td><td>425</td><td>#3</td></tr><tr><td class="pn">LVLxVins20021</td><td>4</td><td>9</td><td>2</td><td>0.44</td><td>275</td><td>#4</td></tr></tbody></table>
+        </div><div class="mcard">
+          <div class="mhead">
+            <div><span class="gnum">G6</span> <span class="mtime">15:39</span></div>
+            <span class="badge loss">DÉFAITE</span>
+          </div>
+          <div class="mmeta">Domination · Silva</div>
+          <div class="mscore"><b>ALLIANCE</b> 76
+              <span class="vs">–</span> 100 <b>REBELS</b></div>
+          <table class="mini"><thead><tr><th>Joueur</th><th>K</th><th>D</th><th>A</th><th>K/D</th><th>Score</th><th>Rang</th></tr></thead>
+          <tbody><tr><td class="pn">LVLxNephtis</td><td>9</td><td>8</td><td>2</td><td>1.12</td><td>600</td><td>#1</td></tr><tr><td class="pn">LVLxVins20021</td><td>8</td><td>7</td><td>2</td><td>1.14</td><td>550</td><td>#2</td></tr><tr><td class="pn">LVLxRaisin</td><td>5</td><td>10</td><td>4</td><td>0.50</td><td>350</td><td>#3</td></tr><tr><td class="pn">STLxElyuriz</td><td>3</td><td>9</td><td>4</td><td>0.33</td><td>250</td><td>#4</td></tr></tbody></table>
+        </div><div class="mcard">
+          <div class="mhead">
+            <div><span class="gnum">G7</span> <span class="mtime">15:47</span></div>
+            <span class="badge loss">DÉFAITE</span>
+          </div>
+          <div class="mmeta">Domination · The Cliff</div>
+          <div class="mscore"><b>ALLIANCE</b> 81
+              <span class="vs">–</span> 100 <b>REBELS</b></div>
+          <table class="mini"><thead><tr><th>Joueur</th><th>K</th><th>D</th><th>A</th><th>K/D</th><th>Score</th><th>Rang</th></tr></thead>
+          <tbody><tr><td class="pn">LVLxNephtis</td><td>9</td><td>7</td><td>1</td><td>1.29</td><td>700</td><td>#1</td></tr><tr><td class="pn">LVLxRaisin</td><td>8</td><td>11</td><td>2</td><td>0.73</td><td>650</td><td>#2</td></tr><tr><td class="pn">LVLxVins20021</td><td>4</td><td>7</td><td>3</td><td>0.57</td><td>350</td><td>#3</td></tr><tr><td class="pn">STLxElyuriz</td><td>5</td><td>8</td><td>1</td><td>0.62</td><td>300</td><td>#4</td></tr></tbody></table>
+        </div><div class="mcard">
+          <div class="mhead">
+            <div><span class="gnum">G8</span> <span class="mtime">15:56</span></div>
+            <span class="badge loss">DÉFAITE</span>
+          </div>
+          <div class="mmeta">Hardpoint · Outlaw</div>
+          <div class="mscore"><b>ALLIANCE</b> 59
+              <span class="vs">–</span> 100 <b>REBELS</b></div>
+          <table class="mini"><thead><tr><th>Joueur</th><th>K</th><th>D</th><th>A</th><th>K/D</th><th>Score</th><th>Rang</th></tr></thead>
+          <tbody><tr><td class="pn">LVLxNephtis</td><td>14</td><td>10</td><td>1</td><td>1.40</td><td>899</td><td>#1</td></tr><tr><td class="pn">LVLxRaisin</td><td>10</td><td>11</td><td>2</td><td>0.91</td><td>838</td><td>#2</td></tr><tr><td class="pn">STLxElyuriz</td><td>5</td><td>11</td><td>0</td><td>0.45</td><td>275</td><td>#3</td></tr><tr><td class="pn">LVLxVins20021</td><td>1</td><td>10</td><td>0</td><td>0.10</td><td>212</td><td>#4</td></tr></tbody></table>
+        </div><div class="mcard">
+          <div class="mhead">
+            <div><span class="gnum">G9</span> <span class="mtime">16:04</span></div>
+            <span class="badge win">VICTOIRE</span>
+          </div>
+          <div class="mmeta">Domination · Ceres</div>
+          <div class="mscore"><b>ALLIANCE</b> 100
+              <span class="vs">–</span> 34 <b>REBELS</b></div>
+          <table class="mini"><thead><tr><th>Joueur</th><th>K</th><th>D</th><th>A</th><th>K/D</th><th>Score</th><th>Rang</th></tr></thead>
+          <tbody><tr><td class="pn">LVLxRaisin<span class="mvpchip">MVP</span></td><td>13</td><td>7</td><td>1</td><td>1.86</td><td>1 025</td><td>#1</td></tr><tr><td class="pn">LVLxNephtis</td><td>11</td><td>5</td><td>4</td><td>2.20</td><td>750</td><td>#2</td></tr><tr><td class="pn">STLxElyuriz</td><td>7</td><td>4</td><td>3</td><td>1.75</td><td>550</td><td>#3</td></tr><tr><td class="pn">LVLxVins20021</td><td>5</td><td>5</td><td>4</td><td>1.00</td><td>500</td><td>#4</td></tr></tbody></table>
+        </div><div class="mcard">
+          <div class="mhead">
+            <div><span class="gnum">G10</span> <span class="mtime">16:12</span></div>
+            <span class="badge draw">NUL</span>
+          </div>
+          <div class="mmeta">SoloGunGame · Bastion</div>
+          <div class="mscore"><b>FFA</b> 0
+              <span class="vs">–</span> 0 <b>ALLIANCE</b></div>
+          <table class="mini"><thead><tr><th>Joueur</th><th>K</th><th>D</th><th>A</th><th>K/D</th><th>Score</th><th>Rang</th></tr></thead>
+          <tbody><tr><td class="pn">TSxRaix<span class="mvpchip">MVP</span></td><td>13</td><td>12</td><td>0</td><td>1.08</td><td>675</td><td>#1</td></tr><tr><td class="pn">LVLxRaisin</td><td>12</td><td>11</td><td>0</td><td>1.09</td><td>675</td><td>#2</td></tr><tr><td class="pn">LVLxNephtis</td><td>12</td><td>13</td><td>0</td><td>0.92</td><td>675</td><td>#3</td></tr><tr><td class="pn">SRCLxSyrowx</td><td>11</td><td>9</td><td>0</td><td>1.22</td><td>625</td><td>#4</td></tr><tr><td class="pn">WYRMxYronos</td><td>11</td><td>12</td><td>0</td><td>0.92</td><td>575</td><td>#6</td></tr><tr><td class="pn">STLxElyuriz</td><td>11</td><td>11</td><td>0</td><td>1.00</td><td>550</td><td>#5</td></tr><tr><td class="pn">LVLxVins20021</td><td>10</td><td>8</td><td>0</td><td>1.25</td><td>525</td><td>#7</td></tr><tr><td class="pn">CSIxSop</td><td>8</td><td>12</td><td>0</td><td>0.67</td><td>400</td><td>#8</td></tr></tbody></table>
+        </div></div>
+</section>
+
+<section>
+  <h2>Méthodologie &amp; définitions</h2>
+  <div class="method">
+    <h3>Source des données</h3>
+    <p>Données extraites de l'API publique GraphQL d'EVA (<code>api.eva.gg/graphql</code>,
+       requête <code>listLastAfterhGameHistoriesByUserAndSeason</code>) pour le profil
+       LVLxRaisin, Saison 9 (active). Seules les 10 parties datées du 30 août 2026 sont retenues.
+       Les valeurs sont celles rapportées par le jeu ; les champs « arme » ne sont pas exposés par l'API et sont omis.</p>
+    <h3>Définition des indicateurs</h3>
+    <dl>
+      <dt>K / D / A</dt><dd>Kills, morts, assists cumulés sur la journée.</dd>
+      <dt>K/D</dt><dd>Kills ÷ morts. 1.0 = autant de kills que de morts.</dd>
+      <dt>KDA</dt><dd>(Kills + Assists) ÷ morts — mesure d'impact incluant le soutien.</dd>
+      <dt>Score</dt><dd>Score de jeu EVA cumulé (récompense kills, objectifs, assists).</dd>
+      <dt>% kills équipe</dt><dd>Part des kills de l'équipe réalisée par le joueur.</dd>
+      <dt>Winrate</dt><dd>Pourcentage de parties gagnées (identique pour tous : équipe fixe).</dd>
+      <dt>Rang moy.</dt><dd>Classement moyen dans la partie (1 = meilleur score de sa partie).</dd>
+      <dt>MVP</dt><dd>Nombre de parties terminées meilleur joueur (rang 1 + titre MVP).</dd>
+    </dl>
+  </div>
+</section>
+
+<footer>Généré le 01/09/2026 · Rapport non officiel · Données de jeu EVA (© EVA / Esports Virtual Arenas)</footer>
+</div>
+</div>
