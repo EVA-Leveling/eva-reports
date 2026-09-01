@@ -1,6 +1,12 @@
-<div class="viz-root">
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>Rapport global — 30 août 2026</title>
 <style>
-:root{--surface-1:#fcfcfb;--plane:#f4f3f0;--card:#fff;--text-primary:#0b0b0b;--text-secondary:#52514e;
+:root{color-scheme:light dark;--surface-1:#fcfcfb;--plane:#f4f3f0;--card:#fff;--text-primary:#0b0b0b;--text-secondary:#52514e;
 --muted:#898781;--grid:#e1e0d9;--axis:#c3c2b7;--border:rgba(11,11,11,.10);--good:#0ca30c;--bad:#d03b3b;--t-REBELS:#2a78d6;--t-ALLIANCE:#1baf7a;}
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--surface-1:#1a1a19;--plane:#0d0d0d;--card:#161615;
 --text-primary:#fff;--text-secondary:#c3c2b7;--muted:#898781;--grid:#2c2c2a;--axis:#383835;
@@ -9,6 +15,7 @@
 --text-secondary:#c3c2b7;--muted:#898781;--grid:#2c2c2a;--axis:#383835;--border:rgba(255,255,255,.10);
 --good:#0ca30c;--bad:#e66767;--t-REBELS:#3987e5;--t-ALLIANCE:#199e70;}
 *{box-sizing:border-box}
+html,body{margin:0;background:var(--plane);color:var(--text-primary)}
 .viz-root{font-family:system-ui,-apple-system,"Segoe UI",sans-serif;color:var(--text-primary);
 background:var(--plane);margin:0;padding:32px 20px 64px;line-height:1.5;-webkit-font-smoothing:antialiased}
 .wrap{max-width:1060px;margin:0 auto}
@@ -71,6 +78,9 @@ table.mini td{text-align:right;padding:5px;border-bottom:1px solid var(--border)
 footer{margin-top:36px;color:var(--muted);font-size:12px;text-align:center}
 @media print{.viz-root{background:#fff;padding:0}.card,.tile,.tcard,.method,.tblscroll,section{break-inside:avoid}}
 </style>
+</head>
+<body>
+<div class="viz-root">
 <div class="wrap">
 <header>
   <div class="kicker">EVA · Battle Arena — Analyse compétitive globale</div>
@@ -223,3 +233,5 @@ footer{margin-top:36px;color:var(--muted);font-size:12px;text-align:center}
 </section>
 <footer>Généré le 01/09/2026 · Analyse non officielle · Données de jeu EVA (© EVA / Esports Virtual Arenas)</footer>
 </div></div>
+</body>
+</html>

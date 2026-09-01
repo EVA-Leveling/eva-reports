@@ -1,13 +1,19 @@
-<div class="viz-root">
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>Rapport Escouade — 30 août 2026</title>
 <style>
 :root{
+  color-scheme: light dark;
   --surface-1:#fcfcfb; --plane:#f4f3f0; --card:#ffffff;
   --text-primary:#0b0b0b; --text-secondary:#52514e; --muted:#898781;
   --grid:#e1e0d9; --axis:#c3c2b7; --border:rgba(11,11,11,.10);
   --series-1:#2a78d6; --good:#0ca30c; --bad:#d03b3b;
   --c-LVLxNephtis:#2a78d6;--c-LVLxRaisin:#1baf7a;--c-STLxElyuriz:#eda100;--c-LVLxVins20021:#008300;--c-TSxRaix:#2a78d6;--c-SRCLxSyrowx:#1baf7a;--c-WYRMxYronos:#eda100;--c-CSIxSop:#008300;
 }
-:root[data-theme="dark"], @media (prefers-color-scheme: dark){}
 @media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){
   --surface-1:#1a1a19; --plane:#0d0d0d; --card:#161615;
   --text-primary:#ffffff; --text-secondary:#c3c2b7; --muted:#898781;
@@ -23,6 +29,7 @@
   --c-LVLxNephtis:#3987e5;--c-LVLxRaisin:#199e70;--c-STLxElyuriz:#c98500;--c-LVLxVins20021:#008300;--c-TSxRaix:#3987e5;--c-SRCLxSyrowx:#199e70;--c-WYRMxYronos:#c98500;--c-CSIxSop:#008300;
 }
 *{box-sizing:border-box}
+html,body{margin:0;background:var(--plane);color:var(--text-primary)}
 .viz-root{font-family:system-ui,-apple-system,"Segoe UI",sans-serif;
   color:var(--text-primary);background:var(--plane);
   margin:0;padding:32px 20px 64px;line-height:1.5;-webkit-font-smoothing:antialiased}
@@ -89,7 +96,9 @@ footer{margin-top:36px;color:var(--muted);font-size:12px;text-align:center}
 @media print{.viz-root{background:#fff;padding:0} .card,.tile,.mcard,.method,.tblscroll{break-inside:avoid}
   section{break-inside:avoid} }
 </style>
-
+</head>
+<body>
+<div class="viz-root">
 <div class="wrap">
 <header class="rep">
   <div class="kicker">EVA · Battle Arena — Rapport de performance</div>
@@ -262,3 +271,5 @@ footer{margin-top:36px;color:var(--muted);font-size:12px;text-align:center}
 <footer>Généré le 01/09/2026 · Rapport non officiel · Données de jeu EVA (© EVA / Esports Virtual Arenas)</footer>
 </div>
 </div>
+</body>
+</html>
