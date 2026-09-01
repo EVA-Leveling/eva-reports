@@ -1,13 +1,19 @@
-<div class="viz-root">
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>Rapport LVL — 24 août 2026</title>
 <style>
 :root{
+  color-scheme: light dark;
   --surface-1:#fcfcfb; --plane:#f4f3f0; --card:#ffffff;
   --text-primary:#0b0b0b; --text-secondary:#52514e; --muted:#898781;
   --grid:#e1e0d9; --axis:#c3c2b7; --border:rgba(11,11,11,.10);
   --series-1:#2a78d6; --good:#0ca30c; --bad:#d03b3b;
   --c-LVLxNephtis:#2a78d6;--c-LVLxMenin:#1baf7a;--c-LVLxRaisin:#eda100;--c-LVLxDanny:#008300;
 }
-:root[data-theme="dark"], @media (prefers-color-scheme: dark){}
 @media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){
   --surface-1:#1a1a19; --plane:#0d0d0d; --card:#161615;
   --text-primary:#ffffff; --text-secondary:#c3c2b7; --muted:#898781;
@@ -23,6 +29,7 @@
   --c-LVLxNephtis:#3987e5;--c-LVLxMenin:#199e70;--c-LVLxRaisin:#c98500;--c-LVLxDanny:#008300;
 }
 *{box-sizing:border-box}
+html,body{margin:0;background:var(--plane);color:var(--text-primary)}
 .viz-root{font-family:system-ui,-apple-system,"Segoe UI",sans-serif;
   color:var(--text-primary);background:var(--plane);
   margin:0;padding:32px 20px 64px;line-height:1.5;-webkit-font-smoothing:antialiased}
@@ -89,19 +96,22 @@ footer{margin-top:36px;color:var(--muted);font-size:12px;text-align:center}
 @media print{.viz-root{background:#fff;padding:0} .card,.tile,.mcard,.method,.tblscroll{break-inside:avoid}
   section{break-inside:avoid} }
 </style>
-
+</head>
+<body>
+<div class="viz-root">
 <div class="wrap">
 <header class="rep">
   <div class="kicker">EVA · Battle Arena — Rapport de performance</div>
   <h1>Équipe LVL — journée du 24 août 2026</h1>
   <p class="sub">Profil de référence <b>LVLxDanny#775307</b> · Saison 9 (active) ·
      <b>7</b> parties · roster : <b>LVLxNephtis, LVLxMenin, LVLxRaisin, LVLxDanny</b></p>
+  
 </header>
 
 <section>
   <h2>Vue d'ensemble de l'équipe</h2>
   <p class="lead">Synthèse de la journée : 7 parties en mode Domination, bilan 6V–1D.</p>
-  <div class="tiles"><div class="tile"><div class="tlab">Parties</div><div class="tval">7</div><div class="tsub">matchs joués le 24/08</div></div><div class="tile"><div class="tlab">Bilan</div><div class="tval">6<span class="u">V</span>–1<span class="u">D</span></div><div class="tsub">86% de victoires</div></div><div class="tile"><div class="tlab">Kills équipe</div><div class="tval">186</div><div class="tsub">26.6 / partie</div></div><div class="tile"><div class="tlab">K/D équipe</div><div class="tval">0.95</div><div class="tsub">186K / 196D</div></div><div class="tile"><div class="tlab">Top fragger</div><div class="tval">Raisin</div><div class="tsub">55 kills</div></div><div class="tile"><div class="tlab">Meilleur K/D</div><div class="tval">Nephtis</div><div class="tsub">1.11 ratio</div></div></div>
+  <div class="tiles"><div class="tile"><div class="tlab">Parties</div><div class="tval">7</div><div class="tsub">matchs joués le 24 août 2026</div></div><div class="tile"><div class="tlab">Bilan</div><div class="tval">6<span class="u">V</span>–1<span class="u">D</span></div><div class="tsub">86% de victoires</div></div><div class="tile"><div class="tlab">Kills équipe</div><div class="tval">186</div><div class="tsub">26.6 / partie</div></div><div class="tile"><div class="tlab">K/D équipe</div><div class="tval">0.95</div><div class="tsub">186K / 196D</div></div><div class="tile"><div class="tlab">Top fragger</div><div class="tval">Raisin</div><div class="tsub">55 kills</div></div><div class="tile"><div class="tlab">Meilleur K/D</div><div class="tval">Nephtis</div><div class="tsub">1.11 ratio</div></div></div>
 </section>
 
 <section>
@@ -212,7 +222,7 @@ footer{margin-top:36px;color:var(--muted);font-size:12px;text-align:center}
     <h3>Source des données</h3>
     <p>Données extraites de l'API publique GraphQL d'EVA (<code>api.eva.gg/graphql</code>,
        requête <code>listLastAfterhGameHistoriesByUserAndSeason</code>) pour le profil
-       LVLxDanny#775307, saison 9. Seules les 7 parties datées du 24/08/2026 sont retenues.
+       LVLxDanny#775307, Saison 9 (active). Seules les 7 parties datées du 24 août 2026 sont retenues.
        Les valeurs sont celles rapportées par le jeu ; les champs « arme » ne sont pas exposés par l'API et sont omis.</p>
     <h3>Définition des indicateurs</h3>
     <dl>
@@ -228,6 +238,8 @@ footer{margin-top:36px;color:var(--muted);font-size:12px;text-align:center}
   </div>
 </section>
 
-<footer>Généré le 26/08/2026 · Rapport non officiel · Données de jeu EVA (© EVA / Esports Virtual Arenas)</footer>
+<footer>Généré le 01/09/2026 · Rapport non officiel · Données de jeu EVA (© EVA / Esports Virtual Arenas)</footer>
 </div>
 </div>
+</body>
+</html>
