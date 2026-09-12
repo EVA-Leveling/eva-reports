@@ -1,5 +1,14 @@
 [
   {
+    "slug": "2026-09-12-lvl",
+    "date": "2026-09-12",
+    "date_str": "12 septembre 2026",
+    "team_label": "LVL",
+    "season": "Saison 9 (active)",
+    "has_team": true,
+    "has_global": true
+  },
+  {
     "slug": "2026-09-03-lvl",
     "date": "2026-09-03",
     "date_str": "3 septembre 2026",
