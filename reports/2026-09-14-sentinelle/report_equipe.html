@@ -60,6 +60,10 @@ table.stats td.pname{font-weight:650}
 table.stats tbody tr:hover{background:color-mix(in srgb,var(--series-1) 8%,transparent)}
 table.stats td.hl{font-weight:700;color:var(--text-primary)}
 .dot{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:8px;vertical-align:middle}
+table.stats td.wrcell{text-align:left;white-space:normal}
+.pips{display:flex;gap:3px;flex-wrap:wrap}
+.pip{width:12px;height:12px;border-radius:3px;flex:none}
+.pip.w{background:var(--good)} .pip.l{background:var(--bad)} .pip.d{background:var(--muted)}
 .tblscroll{overflow-x:auto;border:1px solid var(--border);border-radius:14px;background:var(--card)}
 .legend{display:flex;gap:18px;flex-wrap:wrap;margin:0 0 14px;font-size:13px;color:var(--text-secondary)}
 .legend span{display:inline-flex;align-items:center;gap:7px}
@@ -234,6 +238,13 @@ footer{margin-top:36px;color:var(--muted);font-size:12px;text-align:center}
           <table class="mini"><thead><tr><th>Joueur</th><th>K</th><th>D</th><th>A</th><th>K/D</th><th>Score</th><th>Rang</th></tr></thead>
           <tbody><tr><td class="pn">STLxNysko<span class="mvpchip">MVP</span></td><td>10</td><td>6</td><td>1</td><td>1.67</td><td>700</td><td>#1</td></tr><tr><td class="pn">STLxHappy</td><td>8</td><td>3</td><td>0</td><td>2.67</td><td>625</td><td>#2</td></tr><tr><td class="pn">STLxElyuriz</td><td>7</td><td>8</td><td>3</td><td>0.88</td><td>500</td><td>#3</td></tr><tr><td class="pn">STLxNaephineos</td><td>1</td><td>5</td><td>0</td><td>0.20</td><td>125</td><td>#4</td></tr></tbody></table>
         </div></div>
+</section>
+
+<section>
+  <h2>Winrate par carte</h2>
+  <p class="lead">Bilan de l'équipe SENTINELLE sur chaque carte jouée ce jour-là. Échantillon limité à la journée —
+     à interpréter avec prudence quand une carte n'a été jouée qu'une ou deux fois.</p>
+  <div class="tblscroll"><table class="stats"><thead><tr><th class="pname">Carte</th><th>Parties</th><th>V</th><th>D</th><th>Winrate</th><th>Parties (chrono.)</th></tr></thead><tbody><tr><td class="pname">Outlaw</td><td>1</td><td>1</td><td>0</td><td class="hl">100%</td><td class="wrcell"><div class="pips"><span class="pip w"></span></div></td></tr><tr><td class="pname">Ceres</td><td>1</td><td>1</td><td>0</td><td class="hl">100%</td><td class="wrcell"><div class="pips"><span class="pip w"></span></div></td></tr><tr><td class="pname">Polaris</td><td>1</td><td>1</td><td>0</td><td class="hl">100%</td><td class="wrcell"><div class="pips"><span class="pip w"></span></div></td></tr><tr><td class="pname">The Cliff</td><td>1</td><td>1</td><td>0</td><td class="hl">100%</td><td class="wrcell"><div class="pips"><span class="pip w"></span></div></td></tr><tr><td class="pname">Reef Point</td><td>2</td><td>1</td><td>1</td><td class="hl">50%</td><td class="wrcell"><div class="pips"><span class="pip l"></span><span class="pip w"></span></div></td></tr><tr><td class="pname">Engine</td><td>1</td><td>0</td><td>1</td><td class="">0%</td><td class="wrcell"><div class="pips"><span class="pip l"></span></div></td></tr><tr><td class="pname">Silva</td><td>1</td><td>0</td><td>1</td><td class="">0%</td><td class="wrcell"><div class="pips"><span class="pip l"></span></div></td></tr><tr><td class="pname">Atlantis</td><td>1</td><td>0</td><td>1</td><td class="">0%</td><td class="wrcell"><div class="pips"><span class="pip l"></span></div></td></tr></tbody></table></div>
 </section>
 
 <section>
