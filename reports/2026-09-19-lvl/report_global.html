@@ -1,0 +1,247 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>Rapport global — 19 septembre 2026</title>
+<style>
+:root{color-scheme:light dark;--surface-1:#fcfcfb;--plane:#f4f3f0;--card:#fff;--text-primary:#0b0b0b;--text-secondary:#52514e;
+--muted:#898781;--grid:#e1e0d9;--axis:#c3c2b7;--border:rgba(11,11,11,.10);--good:#0ca30c;--bad:#d03b3b;--t-REBELS:#2a78d6;--t-ALLIANCE:#1baf7a;}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--surface-1:#1a1a19;--plane:#0d0d0d;--card:#161615;
+--text-primary:#fff;--text-secondary:#c3c2b7;--muted:#898781;--grid:#2c2c2a;--axis:#383835;
+--border:rgba(255,255,255,.10);--good:#0ca30c;--bad:#e66767;--t-REBELS:#3987e5;--t-ALLIANCE:#199e70;}}
+:root[data-theme="dark"]{--surface-1:#1a1a19;--plane:#0d0d0d;--card:#161615;--text-primary:#fff;
+--text-secondary:#c3c2b7;--muted:#898781;--grid:#2c2c2a;--axis:#383835;--border:rgba(255,255,255,.10);
+--good:#0ca30c;--bad:#e66767;--t-REBELS:#3987e5;--t-ALLIANCE:#199e70;}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--plane);color:var(--text-primary)}
+.viz-root{font-family:system-ui,-apple-system,"Segoe UI",sans-serif;color:var(--text-primary);
+background:var(--plane);margin:0;padding:32px 20px 64px;line-height:1.5;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1060px;margin:0 auto}
+.kicker{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:600}
+h1{font-size:30px;margin:6px 0 4px;font-weight:750;letter-spacing:-.01em}
+.sub{color:var(--text-secondary);font-size:15px} .sub b{color:var(--text-primary)}
+section{margin-top:42px} h2{font-size:19px;font-weight:700;margin:0 0 4px;letter-spacing:-.01em}
+.lead{color:var(--text-secondary);font-size:14px;margin:0 0 18px;max-width:74ch}
+.tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(165px,1fr));gap:12px}
+.tile{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:16px 18px}
+.tlab{font-size:11.5px;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;font-weight:600}
+.tval{font-size:24px;font-weight:750;margin:6px 0 2px;letter-spacing:-.01em}
+.tsub{font-size:13px;color:var(--text-secondary)}
+.card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:22px}
+.chartwrap{overflow-x:auto} .chart{display:block;max-width:100%}
+.tblscroll{overflow-x:auto;border:1px solid var(--border);border-radius:14px;background:var(--card)}
+table.stats{border-collapse:collapse;width:100%;font-size:13px;font-variant-numeric:tabular-nums}
+table.stats th,table.stats td{padding:9px 8px;text-align:right;white-space:nowrap;border-bottom:1px solid var(--border)}
+table.stats th{color:var(--muted);font-weight:600;font-size:11px;text-transform:uppercase;letter-spacing:.03em}
+table.stats th.pname,table.stats td.pname,th.tg,td.tg,th.rk,td.rk{text-align:left}
+td.pname{font-weight:650} td.tg{font-weight:700;font-size:12px} td.rk{color:var(--muted)}
+table.stats td.hl{font-weight:700}
+table.stats tbody tr:hover td{background:color-mix(in srgb,var(--muted) 12%,transparent)}
+.dot{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:8px;vertical-align:middle}
+.carry{font-weight:800;padding:2px 8px;border-radius:20px;font-variant-numeric:tabular-nums}
+.carry.up{background:color-mix(in srgb,var(--good) 18%,transparent);color:var(--good)}
+.carry.dn{background:color-mix(in srgb,var(--muted) 20%,transparent);color:var(--text-secondary)}
+.gidx{font-weight:800;padding:2px 10px;border-radius:20px;font-variant-numeric:tabular-nums;
+  background:color-mix(in srgb,var(--t-LVL) 16%,transparent);color:var(--t-LVL)}
+table.mtab td.sc{font-weight:700;width:34px;text-align:center} .wl-w{color:var(--good)} .wl-l{color:var(--text-secondary)}
+table.mtab td.dash{color:var(--muted);text-align:center;width:14px} td.ta{text-align:right;font-weight:700} td.tb{text-align:left;font-weight:700} td.wn{font-weight:700}
+table.matrix{border-collapse:separate;border-spacing:6px;width:100%;font-variant-numeric:tabular-nums}
+table.matrix th{font-size:13px;font-weight:700;padding:4px 8px;color:var(--text-secondary)}
+table.matrix td{text-align:center;border-radius:10px;padding:8px 6px;min-width:70px;background:var(--card);border:1px solid var(--border)}
+table.matrix td b{font-size:15px;display:block} .matrix .pd{font-size:11px;color:var(--muted);font-variant-numeric:tabular-nums}
+.matrix .cwin{background:color-mix(in srgb,var(--good) 16%,transparent)}
+.matrix .closs{background:color-mix(in srgb,var(--bad) 14%,transparent)}
+.matrix .diag{background:transparent;border:none;color:var(--muted)} .matrix .na{color:var(--muted)}
+.pips{display:flex;gap:2px;flex-wrap:wrap;justify-content:center;margin-top:4px}
+.pip{width:8px;height:8px;border-radius:2px;flex:none}
+.pip.w{background:var(--good)} .pip.l{background:var(--bad)} .pip.d{background:var(--muted)}
+text.rowlabel{font:700 15px system-ui} text.rowlabel2{font:600 12px system-ui}
+text.barval{fill:var(--text-secondary);font:700 14px system-ui;font-variant-numeric:tabular-nums}
+text.barval2{fill:var(--text-secondary);font:700 11px system-ui;font-variant-numeric:tabular-nums}
+text.tick{fill:var(--muted);font:11px system-ui} line.axis{stroke:var(--axis);stroke-width:1;stroke-dasharray:3 3}
+.tgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:14px}
+.tcard{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:14px 16px}
+.tch{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:8px}
+.ttag{font-size:18px;font-weight:750} .trec{font-size:12.5px;color:var(--text-secondary)}
+table.mini{border-collapse:collapse;width:100%;font-size:12.5px;font-variant-numeric:tabular-nums}
+table.mini th{color:var(--muted);font-weight:600;font-size:10.5px;text-transform:uppercase;text-align:right;padding:4px 5px;border-bottom:1px solid var(--border)}
+table.mini td{text-align:right;padding:5px;border-bottom:1px solid var(--border)} table.mini th:first-child,td.pn{text-align:left}
+.legend{display:flex;gap:16px;flex-wrap:wrap;margin:0 0 14px;font-size:13px;color:var(--text-secondary)}
+.legend span{display:inline-flex;align-items:center;gap:7px} .legend i{width:12px;height:12px;border-radius:3px}
+.analyst{background:var(--card);border:1px solid var(--border);border-left:4px solid var(--t-YK);border-radius:14px;padding:20px 24px;font-size:13.5px;color:var(--text-secondary)}
+.analyst .intro{font-size:14.5px;color:var(--text-primary);margin:0 0 4px}
+.analyst h3{font-size:14px;color:var(--text-primary);margin:18px 0 6px;letter-spacing:-.01em}
+.analyst ul{margin:0;padding-left:20px} .analyst li{margin:5px 0;line-height:1.55}
+.analyst b{color:var(--text-primary)} .analyst i{color:var(--text-secondary)}
+.analyst .foot{margin:16px 0 0;padding-top:12px;border-top:1px solid var(--border);font-size:14px;color:var(--text-primary)}
+.method{font-size:13px;color:var(--text-secondary);background:var(--card);border:1px solid var(--border);border-radius:14px;padding:18px 20px}
+.method h3{font-size:14px;margin:0 0 8px;color:var(--text-primary)} .method code{background:var(--plane);padding:1px 6px;border-radius:5px;font-size:12px}
+footer{margin-top:36px;color:var(--muted);font-size:12px;text-align:center}
+@media print{.viz-root{background:#fff;padding:0}.card,.tile,.tcard,.method,.tblscroll,section{break-inside:avoid}}
+</style>
+</head>
+<body>
+<div class="viz-root">
+<div class="wrap">
+<header>
+  <div class="kicker">EVA · Battle Arena — Analyse compétitive globale</div>
+  <h1>Journée du 19 septembre 2026 — 2 équipes, 10 matchs</h1>
+  <p class="sub">Tournoi toutes-rondes entre <b>REBELS</b> · <b>ALLIANCE</b> ·
+     mode Domination · données consolidées depuis les profils publics de 8 joueurs</p>
+</header>
+
+<section>
+  <h2>Faits marquants de la journée</h2>
+  <div class="tiles"><div class="tile"><div class="tlab">🥇 Champion du jour</div><div class="tval">REBELS</div><div class="tsub">6V–4D · diff +246</div></div><div class="tile"><div class="tlab">Meilleure défense</div><div class="tval">REBELS</div><div class="tsub">65 pts encaissés/match</div></div><div class="tile"><div class="tlab">Joueur le plus complet (indice global)</div><div class="tval">SYNxK6</div><div class="tsub">100/100 · ALLIANCE</div></div><div class="tile"><div class="tlab">Meilleur joueur (score/match)</div><div class="tval">LVLxRaisin</div><div class="tsub">784 pts/match · REBELS</div></div><div class="tile"><div class="tlab">Meilleur joueur (K/D)</div><div class="tval">SYNxK6</div><div class="tsub">1.52 · ALLIANCE</div></div><div class="tile"><div class="tlab">Top fragger</div><div class="tval">SYNxK6</div><div class="tsub">111 kills</div></div><div class="tile"><div class="tlab">Matchs joués</div><div class="tval">10</div><div class="tsub">10 matchs · 2 équipes</div></div></div>
+</section>
+
+<section>
+  <h2>Classement général</h2>
+  <p class="lead">Bilan complet de chaque équipe sur l'ensemble de ses matchs du jour (pas seulement contre LVL).
+     Classé par victoires puis différentiel de points.</p>
+  <div class="tblscroll"><table class="stats"><thead><tr><th class="rk">#</th><th class="pname">Équipe</th><th>MJ</th><th>V</th><th>D</th><th>WR%</th><th>Pts+</th><th>Pts-</th><th>Diff</th><th>K</th><th>D</th><th>K/D</th><th>K/match</th><th>Score/m</th></tr></thead><tbody><tr><td class="rk">🥇</td><td class="pname"><span class="dot" style="background:var(--t-REBELS)"></span>REBELS</td><td>10</td><td class="hl">6</td><td>4</td><td>60%</td><td>894</td><td>648</td><td class="hl">+246</td><td>305</td><td>307</td><td class="hl">0.99</td><td>30.50</td><td>2497.20</td></tr><tr><td class="rk">🥈</td><td class="pname"><span class="dot" style="background:var(--t-ALLIANCE)"></span>ALLIANCE</td><td>10</td><td class="hl">4</td><td>6</td><td>40%</td><td>648</td><td>894</td><td class="hl">-246</td><td>303</td><td>312</td><td class="hl">0.97</td><td>30.30</td><td>2351.30</td></tr></tbody></table></div>
+</section>
+
+<section>
+  <h2>Victoires par équipe</h2>
+  <div class="card chartwrap"><svg viewBox="0 0 720 128" width="100%" preserveAspectRatio="xMidYMid meet" role="img" class="chart stand" xmlns="http://www.w3.org/2000/svg"><text x="12" y="38" class="rowlabel" fill="var(--t-REBELS)">🥇 REBELS</text><rect x="150" y="16" width="270.0" height="30" rx="4" fill="var(--t-REBELS)"><title>REBELS — 6V-4D sur 10 matchs</title></rect><text x="430.0" y="37" class="barval">6V – 4D</text><text x="12" y="90" class="rowlabel" fill="var(--t-ALLIANCE)">🥈 ALLIANCE</text><rect x="150" y="68" width="180.0" height="30" rx="4" fill="var(--t-ALLIANCE)"><title>ALLIANCE — 4V-6D sur 10 matchs</title></rect><text x="340.0" y="89" class="barval">4V – 6D</text></svg></div>
+</section>
+
+<section>
+  <h2>Différentiel de points (marqués − encaissés)</h2>
+  <p class="lead">Mesure de domination indépendante du nombre de matchs. SRCL a le meilleur différentiel malgré une 2ᵉ place.</p>
+  <div class="card chartwrap"><svg viewBox="0 0 720 122" width="100%" preserveAspectRatio="xMidYMid meet" role="img" class="chart diff" xmlns="http://www.w3.org/2000/svg"><line x1="405.0" y1="20" x2="405.0" y2="108" class="axis"/><text x="405.0" y="14" class="tick" text-anchor="middle">0</text><text x="12" y="44" class="rowlabel" fill="var(--t-REBELS)">REBELS</text><rect x="405.0" y="26" width="239.1" height="24" rx="4" fill="var(--good)"><title>REBELS — différentiel +246 (894-648)</title></rect><text x="652.1" y="43" class="barval" text-anchor="start">+246</text><text x="12" y="90" class="rowlabel" fill="var(--t-ALLIANCE)">ALLIANCE</text><rect x="165.9" y="72" width="239.1" height="24" rx="4" fill="var(--bad)"><title>ALLIANCE — différentiel -246 (648-894)</title></rect><text x="157.9" y="89" class="barval" text-anchor="end">-246</text></svg></div>
+</section>
+
+<section>
+  <h2>Confrontations directes</h2>
+  <p class="lead">Bilan de chaque équipe (ligne) face à chaque adversaire (colonne) : victoires–défaites, et points marqués-encaissés en dessous. Vert = série gagnée, rouge = perdue.</p>
+  <div class="tblscroll" style="padding:12px"><table class="matrix"><thead><tr><th></th><th style="color:var(--t-ALLIANCE)">ALLIANCE</th><th style="color:var(--t-REBELS)">REBELS</th></tr></thead><tbody><tr><th style="color:var(--t-ALLIANCE)">ALLIANCE</th><td class="diag">—</td><td class="closs"><b>4–6</b><span class="pd">648-894</span></td></tr><tr><th style="color:var(--t-REBELS)">REBELS</th><td class="cwin"><b>6–4</b><span class="pd">894-648</span></td><td class="diag">—</td></tr></tbody></table></div>
+</section>
+
+<section>
+  <h2>Winrate par carte, par équipe</h2>
+  <p class="lead">Pourcentage de victoires de chaque équipe (ligne) sur chaque carte (colonne), avec le bilan V-D en dessous.
+     Échantillon limité à la journée — à lire avec prudence quand une équipe n'a joué qu'une ou deux fois une carte donnée.</p>
+  <div class="tblscroll" style="padding:12px"><table class="matrix"><thead><tr><th></th><th>Outlaw</th><th>Atlantis</th><th>Ceres</th><th>Engine</th><th>Polaris</th><th>Reef Point</th><th>Silva</th><th>The Cliff</th></tr></thead><tbody><tr><th style="color:var(--t-ALLIANCE)">ALLIANCE</th><td class="cdraw"><b>50%</b><div class="pips"><span class="pip l"></span><span class="pip w"></span></div></td><td class="closs"><b>0%</b><div class="pips"><span class="pip l"></span></div></td><td class="closs"><b>0%</b><div class="pips"><span class="pip l"></span></div></td><td class="closs"><b>0%</b><div class="pips"><span class="pip l"></span></div></td><td class="closs"><b>0%</b><div class="pips"><span class="pip l"></span></div></td><td class="cwin"><b>100%</b><div class="pips"><span class="pip w"></span><span class="pip w"></span></div></td><td class="closs"><b>0%</b><div class="pips"><span class="pip l"></span></div></td><td class="cwin"><b>100%</b><div class="pips"><span class="pip w"></span></div></td></tr><tr><th style="color:var(--t-REBELS)">REBELS</th><td class="cdraw"><b>50%</b><div class="pips"><span class="pip w"></span><span class="pip l"></span></div></td><td class="cwin"><b>100%</b><div class="pips"><span class="pip w"></span></div></td><td class="cwin"><b>100%</b><div class="pips"><span class="pip w"></span></div></td><td class="cwin"><b>100%</b><div class="pips"><span class="pip w"></span></div></td><td class="cwin"><b>100%</b><div class="pips"><span class="pip w"></span></div></td><td class="closs"><b>0%</b><div class="pips"><span class="pip l"></span><span class="pip l"></span></div></td><td class="cwin"><b>100%</b><div class="pips"><span class="pip w"></span></div></td><td class="closs"><b>0%</b><div class="pips"><span class="pip l"></span></div></td></tr></tbody></table></div>
+</section>
+
+<section>
+  <h2>Détail par équipe</h2>
+  <p class="lead">Composition et performance individuelle de chaque équipe (★ = au moins un titre de MVP dans la journée).</p>
+  <div class="tgrid"><div class="tcard" style="border-top:3px solid var(--t-REBELS)">
+          <div class="tch"><span class="ttag" style="color:var(--t-REBELS)">REBELS</span>
+            <span class="trec">🥇 · 6V–4D · K/D 0.99</span></div>
+          <table class="mini"><thead><tr><th>Joueur</th><th>K</th><th>D</th><th>A</th><th>K/D</th><th>Score</th><th>MVP</th></tr></thead>
+          <tbody><tr><td class="pn">LVLxRaisin ★</td><td>104</td><td>76</td><td>23</td><td>1.37</td><td>7 836</td><td>4</td></tr><tr><td class="pn">LVLxNephtis</td><td>68</td><td>77</td><td>26</td><td>0.88</td><td>6 526</td><td>0</td></tr><tr><td class="pn">LVLxMenin</td><td>72</td><td>83</td><td>25</td><td>0.87</td><td>5 925</td><td>0</td></tr><tr><td class="pn">LVLxVins20021 ★</td><td>61</td><td>71</td><td>15</td><td>0.86</td><td>4 685</td><td>1</td></tr></tbody></table></div><div class="tcard" style="border-top:3px solid var(--t-ALLIANCE)">
+          <div class="tch"><span class="ttag" style="color:var(--t-ALLIANCE)">ALLIANCE</span>
+            <span class="trec">🥈 · 4V–6D · K/D 0.97</span></div>
+          <table class="mini"><thead><tr><th>Joueur</th><th>K</th><th>D</th><th>A</th><th>K/D</th><th>Score</th><th>MVP</th></tr></thead>
+          <tbody><tr><td class="pn">SYNxK6 ★</td><td>111</td><td>73</td><td>15</td><td>1.52</td><td>7 820</td><td>4</td></tr><tr><td class="pn">SYNxAkirod</td><td>74</td><td>75</td><td>22</td><td>0.99</td><td>5 603</td><td>0</td></tr><tr><td class="pn">SYNxKalas ★</td><td>64</td><td>87</td><td>21</td><td>0.74</td><td>5 229</td><td>1</td></tr><tr><td class="pn">SYNxSIGWOLF</td><td>54</td><td>77</td><td>16</td><td>0.70</td><td>4 861</td><td>0</td></tr></tbody></table></div></div>
+</section>
+
+<section>
+  <h2>Classement individuel — 16 joueurs (score par match)</h2>
+  <p class="lead">Tous les joueurs des 2 équipes, classés par <b>score moyen par match</b> — la métrique la plus
+     équitable ici, car elle neutralise le nombre de parties jouées (6 ou 7 selon l'équipe) et mesure l'impact
+     global (kills + assists + objectifs + victoires), pas seulement l'efficacité au tir. Colonnes clés surlignées : score/match et K/D.</p>
+  <div class="tblscroll"><table class="stats"><thead><tr><th class="rk">#</th><th class="pname">Joueur</th><th class="tg">Équipe</th><th>MJ</th><th>K</th><th>D</th><th>A</th><th>K/D</th><th>KDA</th><th>K/m</th><th>Score</th><th>Score/m</th><th>WR%</th><th>MVP</th><th>Rang moy.</th></tr></thead><tbody><tr><td class="rk">1</td><td class="pname"><span class="dot" style="background:var(--t-REBELS)"></span>LVLxRaisin</td><td class="tg" style="color:var(--t-REBELS)">REBELS</td><td>10</td><td>104</td><td>76</td><td>23</td><td class="hl">1.37</td><td>1.67</td><td>10.40</td><td>7 836</td><td class="hl">783.60</td><td>60%</td><td>4</td><td>1.60</td></tr><tr><td class="rk">2</td><td class="pname"><span class="dot" style="background:var(--t-ALLIANCE)"></span>SYNxK6</td><td class="tg" style="color:var(--t-ALLIANCE)">ALLIANCE</td><td>10</td><td>111</td><td>73</td><td>15</td><td class="hl">1.52</td><td>1.73</td><td>11.10</td><td>7 820</td><td class="hl">782.00</td><td>40%</td><td>4</td><td>1.60</td></tr><tr><td class="rk">3</td><td class="pname"><span class="dot" style="background:var(--t-REBELS)"></span>LVLxNephtis</td><td class="tg" style="color:var(--t-REBELS)">REBELS</td><td>10</td><td>68</td><td>77</td><td>26</td><td class="hl">0.88</td><td>1.22</td><td>6.80</td><td>6 526</td><td class="hl">652.60</td><td>60%</td><td>0</td><td>2.40</td></tr><tr><td class="rk">4</td><td class="pname"><span class="dot" style="background:var(--t-REBELS)"></span>LVLxMenin</td><td class="tg" style="color:var(--t-REBELS)">REBELS</td><td>10</td><td>72</td><td>83</td><td>25</td><td class="hl">0.87</td><td>1.17</td><td>7.20</td><td>5 925</td><td class="hl">592.50</td><td>60%</td><td>0</td><td>2.70</td></tr><tr><td class="rk">5</td><td class="pname"><span class="dot" style="background:var(--t-ALLIANCE)"></span>SYNxAkirod</td><td class="tg" style="color:var(--t-ALLIANCE)">ALLIANCE</td><td>10</td><td>74</td><td>75</td><td>22</td><td class="hl">0.99</td><td>1.28</td><td>7.40</td><td>5 603</td><td class="hl">560.30</td><td>40%</td><td>0</td><td>2.40</td></tr><tr><td class="rk">6</td><td class="pname"><span class="dot" style="background:var(--t-ALLIANCE)"></span>SYNxKalas</td><td class="tg" style="color:var(--t-ALLIANCE)">ALLIANCE</td><td>10</td><td>64</td><td>87</td><td>21</td><td class="hl">0.74</td><td>0.98</td><td>6.40</td><td>5 229</td><td class="hl">522.90</td><td>40%</td><td>1</td><td>2.90</td></tr><tr><td class="rk">7</td><td class="pname"><span class="dot" style="background:var(--t-ALLIANCE)"></span>SYNxSIGWOLF</td><td class="tg" style="color:var(--t-ALLIANCE)">ALLIANCE</td><td>10</td><td>54</td><td>77</td><td>16</td><td class="hl">0.70</td><td>0.91</td><td>5.40</td><td>4 861</td><td class="hl">486.10</td><td>40%</td><td>0</td><td>3.10</td></tr><tr><td class="rk">8</td><td class="pname"><span class="dot" style="background:var(--t-REBELS)"></span>LVLxVins20021</td><td class="tg" style="color:var(--t-REBELS)">REBELS</td><td>10</td><td>61</td><td>71</td><td>15</td><td class="hl">0.86</td><td>1.07</td><td>6.10</td><td>4 685</td><td class="hl">468.50</td><td>60%</td><td>1</td><td>3.30</td></tr></tbody></table></div>
+</section>
+
+<section>
+  <h2>Classement par « carry » — impact relatif à ses coéquipiers</h2>
+  <p class="lead">Même score/match, mais rapporté au niveau de ses propres coéquipiers :
+     <b>Carry Index = score/match du joueur ÷ score/match moyen de ses 3 coéquipiers</b>.
+     <b>&gt; 1</b> = il <b>carry</b> son équipe (meilleur que ses partenaires) ; <b>&lt; 1</b> = il est <b>carry</b> (porté par ses coéquipiers).
+     Un joueur fort entouré de coéquipiers faibles monte ici — c'est la mesure de la performance « en solo ».
+     À lire avec la colonne Score/m : un fort indice sur un score/m élevé (ex. Poissard) = vraie domination ;
+     un fort indice sur un score/m modeste = surtout des coéquipiers faibles.</p>
+  <div class="tblscroll"><table class="stats"><thead><tr><th class="rk">#</th><th class="pname">Joueur</th><th class="tg">Équipe</th><th>Score/m</th><th>Score/m coéq.</th><th>Carry Index</th><th>K/D</th></tr></thead><tbody><tr><td class="rk">1</td><td class="pname"><span class="dot" style="background:var(--t-ALLIANCE)"></span>SYNxK6</td><td class="tg" style="color:var(--t-ALLIANCE)">ALLIANCE</td><td class="hl">782</td><td>523</td><td><span class="carry up">1.49×</span></td><td>1.52</td></tr><tr><td class="rk">2</td><td class="pname"><span class="dot" style="background:var(--t-REBELS)"></span>LVLxRaisin</td><td class="tg" style="color:var(--t-REBELS)">REBELS</td><td class="hl">784</td><td>571</td><td><span class="carry up">1.37×</span></td><td>1.37</td></tr><tr><td class="rk">3</td><td class="pname"><span class="dot" style="background:var(--t-REBELS)"></span>LVLxNephtis</td><td class="tg" style="color:var(--t-REBELS)">REBELS</td><td class="hl">653</td><td>615</td><td><span class="carry up">1.06×</span></td><td>0.88</td></tr><tr><td class="rk">4</td><td class="pname"><span class="dot" style="background:var(--t-ALLIANCE)"></span>SYNxAkirod</td><td class="tg" style="color:var(--t-ALLIANCE)">ALLIANCE</td><td class="hl">560</td><td>597</td><td><span class="carry dn">0.94×</span></td><td>0.99</td></tr><tr><td class="rk">5</td><td class="pname"><span class="dot" style="background:var(--t-REBELS)"></span>LVLxMenin</td><td class="tg" style="color:var(--t-REBELS)">REBELS</td><td class="hl">592</td><td>635</td><td><span class="carry dn">0.93×</span></td><td>0.87</td></tr><tr><td class="rk">6</td><td class="pname"><span class="dot" style="background:var(--t-ALLIANCE)"></span>SYNxKalas</td><td class="tg" style="color:var(--t-ALLIANCE)">ALLIANCE</td><td class="hl">523</td><td>609</td><td><span class="carry dn">0.86×</span></td><td>0.74</td></tr><tr><td class="rk">7</td><td class="pname"><span class="dot" style="background:var(--t-ALLIANCE)"></span>SYNxSIGWOLF</td><td class="tg" style="color:var(--t-ALLIANCE)">ALLIANCE</td><td class="hl">486</td><td>622</td><td><span class="carry dn">0.78×</span></td><td>0.70</td></tr><tr><td class="rk">8</td><td class="pname"><span class="dot" style="background:var(--t-REBELS)"></span>LVLxVins20021</td><td class="tg" style="color:var(--t-REBELS)">REBELS</td><td class="hl">468</td><td>676</td><td><span class="carry dn">0.69×</span></td><td>0.86</td></tr></tbody></table></div>
+</section>
+
+<section>
+  <h2>Classement ajusté à la force de l'adversaire</h2>
+  <p class="lead">Troisième angle : de bonnes stats contre une équipe faible valent moins que les mêmes stats contre une équipe forte.
+     Chaque match est pondéré par la force de l'adversaire — <b>poids = 0,5 + win rate de l'adversaire</b> (affronter la dernière équipe
+     compte pour ~0,5×, une équipe moyenne ~1×, la meilleure ~1,36×). <b>Score/m ajusté</b> = moyenne des scores pondérés ainsi.
+     « Difficulté adv. » = win rate moyen des adversaires affrontés (calendrier). <b>Δ</b> montre le gain/perte de rang par rapport au classement score/match brut :
+     ceux qui montent ont brillé contre du lourd, ceux qui descendent ont profité d'adversaires faibles.</p>
+  <div class="tblscroll"><table class="stats"><thead><tr><th class="rk">#</th><th class="pname">Joueur</th><th class="tg">Équipe</th><th>Score/m</th><th>Carry</th><th>Difficulté adv.</th><th>Score/m ajusté</th><th>Δ vs score/m</th></tr></thead><tbody><tr><td class="rk">1</td><td class="pname"><span class="dot" style="background:var(--t-ALLIANCE)"></span>SYNxK6</td><td class="tg" style="color:var(--t-ALLIANCE)">ALLIANCE</td><td>782</td><td>1.49×</td><td>60%</td><td class="hl">860</td><td><span class="carry up">▲ +1</span></td></tr><tr><td class="rk">2</td><td class="pname"><span class="dot" style="background:var(--t-REBELS)"></span>LVLxRaisin</td><td class="tg" style="color:var(--t-REBELS)">REBELS</td><td>784</td><td>1.37×</td><td>40%</td><td class="hl">705</td><td><span class="carry dn">▼ -1</span></td></tr><tr><td class="rk">3</td><td class="pname"><span class="dot" style="background:var(--t-ALLIANCE)"></span>SYNxAkirod</td><td class="tg" style="color:var(--t-ALLIANCE)">ALLIANCE</td><td>560</td><td>0.94×</td><td>60%</td><td class="hl">616</td><td><span class="carry up">▲ +2</span></td></tr><tr><td class="rk">4</td><td class="pname"><span class="dot" style="background:var(--t-REBELS)"></span>LVLxNephtis</td><td class="tg" style="color:var(--t-REBELS)">REBELS</td><td>653</td><td>1.06×</td><td>40%</td><td class="hl">587</td><td><span class="carry dn">▼ -1</span></td></tr><tr><td class="rk">5</td><td class="pname"><span class="dot" style="background:var(--t-ALLIANCE)"></span>SYNxKalas</td><td class="tg" style="color:var(--t-ALLIANCE)">ALLIANCE</td><td>523</td><td>0.86×</td><td>60%</td><td class="hl">575</td><td><span class="carry up">▲ +1</span></td></tr><tr><td class="rk">6</td><td class="pname"><span class="dot" style="background:var(--t-ALLIANCE)"></span>SYNxSIGWOLF</td><td class="tg" style="color:var(--t-ALLIANCE)">ALLIANCE</td><td>486</td><td>0.78×</td><td>60%</td><td class="hl">535</td><td><span class="carry up">▲ +1</span></td></tr><tr><td class="rk">7</td><td class="pname"><span class="dot" style="background:var(--t-REBELS)"></span>LVLxMenin</td><td class="tg" style="color:var(--t-REBELS)">REBELS</td><td>592</td><td>0.93×</td><td>40%</td><td class="hl">533</td><td><span class="carry dn">▼ -3</span></td></tr><tr><td class="rk">8</td><td class="pname"><span class="dot" style="background:var(--t-REBELS)"></span>LVLxVins20021</td><td class="tg" style="color:var(--t-REBELS)">REBELS</td><td>468</td><td>0.69×</td><td>40%</td><td class="hl">422</td><td><span class="carry dn">=</span></td></tr></tbody></table></div>
+</section>
+
+<section>
+  <h2>🏆 Classement « définitif » — indice global</h2>
+  <p class="lead">Synthèse des <b>trois</b> classements précédents, chacun avec le <b>même poids (1/3)</b>. Chaque métrique
+     (score/match, carry, ajusté à l'adversaire) est d'abord ramenée sur une échelle <b>0-100</b> (min-max) pour être comparable,
+     puis moyennée : <b>Indice global = (Score/m₁₀₀ + Carry₁₀₀ + Adversaire₁₀₀) ÷ 3</b>. Il récompense les joueurs forts sur les
+     trois plans à la fois : impact brut, domination de leur équipe, ET niveau d'adversité.</p>
+  <div class="tblscroll"><table class="stats"><thead><tr><th class="rk">#</th><th class="pname">Joueur</th><th class="tg">Équipe</th><th>Score/m /100</th><th>Carry /100</th><th>Adversaire /100</th><th>Indice global /100</th></tr></thead><tbody><tr><td class="rk">🥇</td><td class="pname"><span class="dot" style="background:var(--t-ALLIANCE)"></span>SYNxK6</td><td class="tg" style="color:var(--t-ALLIANCE)">ALLIANCE</td><td>99</td><td>100</td><td>100</td><td><span class="gidx">100</span></td></tr><tr><td class="rk">🥈</td><td class="pname"><span class="dot" style="background:var(--t-REBELS)"></span>LVLxRaisin</td><td class="tg" style="color:var(--t-REBELS)">REBELS</td><td>100</td><td>85</td><td>65</td><td><span class="gidx">83</span></td></tr><tr><td class="rk">🥉</td><td class="pname"><span class="dot" style="background:var(--t-REBELS)"></span>LVLxNephtis</td><td class="tg" style="color:var(--t-REBELS)">REBELS</td><td>58</td><td>46</td><td>38</td><td><span class="gidx">47</span></td></tr><tr><td class="rk">4</td><td class="pname"><span class="dot" style="background:var(--t-ALLIANCE)"></span>SYNxAkirod</td><td class="tg" style="color:var(--t-ALLIANCE)">ALLIANCE</td><td>29</td><td>31</td><td>44</td><td><span class="gidx">35</span></td></tr><tr><td class="rk">5</td><td class="pname"><span class="dot" style="background:var(--t-REBELS)"></span>LVLxMenin</td><td class="tg" style="color:var(--t-REBELS)">REBELS</td><td>39</td><td>30</td><td>25</td><td><span class="gidx">32</span></td></tr><tr><td class="rk">6</td><td class="pname"><span class="dot" style="background:var(--t-ALLIANCE)"></span>SYNxKalas</td><td class="tg" style="color:var(--t-ALLIANCE)">ALLIANCE</td><td>17</td><td>21</td><td>35</td><td><span class="gidx">25</span></td></tr><tr><td class="rk">7</td><td class="pname"><span class="dot" style="background:var(--t-ALLIANCE)"></span>SYNxSIGWOLF</td><td class="tg" style="color:var(--t-ALLIANCE)">ALLIANCE</td><td>6</td><td>11</td><td>26</td><td><span class="gidx">14</span></td></tr><tr><td class="rk">8</td><td class="pname"><span class="dot" style="background:var(--t-REBELS)"></span>LVLxVins20021</td><td class="tg" style="color:var(--t-REBELS)">REBELS</td><td>0</td><td>0</td><td>0</td><td><span class="gidx">0</span></td></tr></tbody></table></div>
+  <p class="note" style="margin-top:12px;font-size:12.5px;color:var(--muted)">
+    « Définitif » entre guillemets : les trois métriques dérivent toutes du score et se recoupent donc en partie ;
+    et cet indice reste aveugle au rôle, à la communication et au contexte (voir la note d'analyste en bas de page).</p>
+</section>
+
+<section>
+  <h2>Total de kills — tous les joueurs</h2>
+  <div class="card chartwrap"><svg viewBox="0 0 760 248" width="100%" preserveAspectRatio="xMidYMid meet" role="img" class="chart frag" xmlns="http://www.w3.org/2000/svg"><text x="12" y="28" class="rowlabel2" fill="var(--t-ALLIANCE)">SYNxK6</text><rect x="200" y="16" width="505.0" height="15" rx="4" fill="var(--t-ALLIANCE)"><title>SYNxK6 (ALLIANCE) — 111 kills / 10 matchs</title></rect><text x="711.0" y="28" class="barval2">111</text><text x="12" y="56" class="rowlabel2" fill="var(--t-REBELS)">LVLxRaisin</text><rect x="200" y="44" width="473.2" height="15" rx="4" fill="var(--t-REBELS)"><title>LVLxRaisin (REBELS) — 104 kills / 10 matchs</title></rect><text x="679.2" y="56" class="barval2">104</text><text x="12" y="84" class="rowlabel2" fill="var(--t-ALLIANCE)">SYNxAkirod</text><rect x="200" y="72" width="336.7" height="15" rx="4" fill="var(--t-ALLIANCE)"><title>SYNxAkirod (ALLIANCE) — 74 kills / 10 matchs</title></rect><text x="542.7" y="84" class="barval2">74</text><text x="12" y="112" class="rowlabel2" fill="var(--t-REBELS)">LVLxMenin</text><rect x="200" y="100" width="327.6" height="15" rx="4" fill="var(--t-REBELS)"><title>LVLxMenin (REBELS) — 72 kills / 10 matchs</title></rect><text x="533.6" y="112" class="barval2">72</text><text x="12" y="140" class="rowlabel2" fill="var(--t-REBELS)">LVLxNephtis</text><rect x="200" y="128" width="309.4" height="15" rx="4" fill="var(--t-REBELS)"><title>LVLxNephtis (REBELS) — 68 kills / 10 matchs</title></rect><text x="515.4" y="140" class="barval2">68</text><text x="12" y="168" class="rowlabel2" fill="var(--t-ALLIANCE)">SYNxKalas</text><rect x="200" y="156" width="291.2" height="15" rx="4" fill="var(--t-ALLIANCE)"><title>SYNxKalas (ALLIANCE) — 64 kills / 10 matchs</title></rect><text x="497.2" y="168" class="barval2">64</text><text x="12" y="196" class="rowlabel2" fill="var(--t-REBELS)">LVLxVins20021</text><rect x="200" y="184" width="277.5" height="15" rx="4" fill="var(--t-REBELS)"><title>LVLxVins20021 (REBELS) — 61 kills / 10 matchs</title></rect><text x="483.5" y="196" class="barval2">61</text><text x="12" y="224" class="rowlabel2" fill="var(--t-ALLIANCE)">SYNxSIGWOLF</text><rect x="200" y="212" width="245.7" height="15" rx="4" fill="var(--t-ALLIANCE)"><title>SYNxSIGWOLF (ALLIANCE) — 54 kills / 10 matchs</title></rect><text x="451.7" y="224" class="barval2">54</text></svg></div>
+</section>
+
+<section>
+  <h2>Tous les matchs de la journée</h2>
+  <div class="tblscroll"><table class="stats mtab"><thead><tr><th class="rk">#</th><th>Heure</th><th>Carte</th><th>Équipe A</th><th></th><th></th><th></th><th>Équipe B</th><th>Vainqueur</th></tr></thead><tbody><tr><td class="rk">1</td><td>20:16</td><td>Outlaw</td><td class="ta" style="color:var(--t-ALLIANCE)">ALLIANCE</td><td class="sc wl-l">26</td><td class="dash">–</td><td class="sc wl-w">100</td><td class="tb" style="color:var(--t-REBELS)">REBELS</td><td class="wn" style="color:var(--t-REBELS)">REBELS</td></tr><tr><td class="rk">2</td><td>20:26</td><td>Atlantis</td><td class="ta" style="color:var(--t-ALLIANCE)">ALLIANCE</td><td class="sc wl-l">79</td><td class="dash">–</td><td class="sc wl-w">100</td><td class="tb" style="color:var(--t-REBELS)">REBELS</td><td class="wn" style="color:var(--t-REBELS)">REBELS</td></tr><tr><td class="rk">3</td><td>20:34</td><td>Ceres</td><td class="ta" style="color:var(--t-ALLIANCE)">ALLIANCE</td><td class="sc wl-l">63</td><td class="dash">–</td><td class="sc wl-w">100</td><td class="tb" style="color:var(--t-REBELS)">REBELS</td><td class="wn" style="color:var(--t-REBELS)">REBELS</td></tr><tr><td class="rk">4</td><td>20:40</td><td>Engine</td><td class="ta" style="color:var(--t-ALLIANCE)">ALLIANCE</td><td class="sc wl-l">50</td><td class="dash">–</td><td class="sc wl-w">100</td><td class="tb" style="color:var(--t-REBELS)">REBELS</td><td class="wn" style="color:var(--t-REBELS)">REBELS</td></tr><tr><td class="rk">5</td><td>20:47</td><td>Polaris</td><td class="ta" style="color:var(--t-ALLIANCE)">ALLIANCE</td><td class="sc wl-l">30</td><td class="dash">–</td><td class="sc wl-w">100</td><td class="tb" style="color:var(--t-REBELS)">REBELS</td><td class="wn" style="color:var(--t-REBELS)">REBELS</td></tr><tr><td class="rk">6</td><td>20:55</td><td>Reef Point</td><td class="ta" style="color:var(--t-ALLIANCE)">ALLIANCE</td><td class="sc wl-w">100</td><td class="dash">–</td><td class="sc wl-l">87</td><td class="tb" style="color:var(--t-REBELS)">REBELS</td><td class="wn" style="color:var(--t-ALLIANCE)">ALLIANCE</td></tr><tr><td class="rk">7</td><td>21:00</td><td>Silva</td><td class="ta" style="color:var(--t-ALLIANCE)">ALLIANCE</td><td class="sc wl-l">0</td><td class="dash">–</td><td class="sc wl-w">100</td><td class="tb" style="color:var(--t-REBELS)">REBELS</td><td class="wn" style="color:var(--t-REBELS)">REBELS</td></tr><tr><td class="rk">8</td><td>21:08</td><td>The Cliff</td><td class="ta" style="color:var(--t-ALLIANCE)">ALLIANCE</td><td class="sc wl-w">100</td><td class="dash">–</td><td class="sc wl-l">71</td><td class="tb" style="color:var(--t-REBELS)">REBELS</td><td class="wn" style="color:var(--t-ALLIANCE)">ALLIANCE</td></tr><tr><td class="rk">9</td><td>21:15</td><td>Reef Point</td><td class="ta" style="color:var(--t-ALLIANCE)">ALLIANCE</td><td class="sc wl-w">100</td><td class="dash">–</td><td class="sc wl-l">43</td><td class="tb" style="color:var(--t-REBELS)">REBELS</td><td class="wn" style="color:var(--t-ALLIANCE)">ALLIANCE</td></tr><tr><td class="rk">10</td><td>21:26</td><td>Outlaw</td><td class="ta" style="color:var(--t-ALLIANCE)">ALLIANCE</td><td class="sc wl-w">100</td><td class="dash">–</td><td class="sc wl-l">93</td><td class="tb" style="color:var(--t-REBELS)">REBELS</td><td class="wn" style="color:var(--t-ALLIANCE)">ALLIANCE</td></tr></tbody></table></div>
+</section>
+
+<section>
+  <h2>⚠️ Note d'analyste — comment (bien) lire ces indicateurs</h2>
+  <div class="analyst">
+    <p class="intro">Ces trois classements (score/match, carry, ajusté à l'adversaire) sont des <b>indicateurs, pas des verdicts</b>.
+       Utilisés seuls, ils induisent en erreur. Voici, avec un regard de coach/analyste, ce qu'ils valent vraiment et ce qui leur échappe.</p>
+
+    <h3>Les limites de ces métriques</h3>
+    <ul>
+      <li><b>Le carry est relatif, quasi circulaire.</b> Il compare un joueur à ses coéquipiers : une équipe où les 4 sont excellents et équilibrés donne tout le monde à ~1,0, même si c'est la meilleure équipe. Il mesure le <i>déséquilibre interne</i>, pas la force absolue.</li>
+      <li><b>Il pénalise le jeu d'équipe.</b> Un joueur qui rend ses partenaires meilleurs (setups, assists, attire le feu) augmente le dénominateur → son propre carry baisse. On punit statistiquement le joueur le plus altruiste.</li>
+      <li><b>Le piège du « stat-padding » en défaite.</b> Un gros score sur une équipe qui perd (ex. YK à 0-6) peut signifier soit un vrai talent sous-entouré, soit des frags accumulés en garbage time sans impact sur le résultat. Les stats seules ne tranchent pas — un vrai carry <i>fait gagner</i>.</li>
+      <li><b>Échantillon minuscule.</b> 6-7 matchs, une journée : la variance est énorme. Aucune conclusion solide avant ~30-50 matchs.</li>
+      <li><b>« Score » reste un proxy imparfait.</b> Un rôle d'ancre/support aura structurellement un score plus bas tout en étant décisif.</li>
+    </ul>
+
+    <h3>Ce que les stats ne capturent pas (et qui pèse souvent plus)</h3>
+    <ul>
+      <li><b>Le rôle de chacun</b> (entry, ancre, support, flex, <b>IGL/shotcaller</b>). Un IGL peut avoir des stats moyennes et être irremplaçable. Sans le rôle, K/D et score sont ininterprétables.</li>
+      <li><b>La communication et les calls</b> — probablement le facteur le plus déterminant en équipe, totalement absent des chiffres.</li>
+      <li><b>Le jeu réel</b> : positionnement, contrôle de map, rotations et timing sur les zones, <b>trades</b> (mourir « échangé » vs gratuitement), entries réussies, <b>clutchs</b> (1vX).</li>
+      <li><b>La force de l'adversaire</b> — partiellement corrigée par le classement ajusté ci-dessus, mais la qualité du calendrier reste clé.</li>
+      <li><b>Le physique (EVA = VR free-roam)</b> : endurance sur la session, courbe de fatigue, temps de réaction en fin de journée.</li>
+      <li><b>Le mental & la coachabilité</b> : résistance au tilt, régularité sous pression, capacité à progresser — le meilleur prédicteur long terme, invisible en data.</li>
+    </ul>
+
+    <h3>Comment s'en servir pour progresser &amp; détecter les talents</h3>
+    <ul>
+      <li><b>Indicateur, jamais classement définitif.</b> Toujours lire ensemble : score/m absolu + carry + victoires/défaites + <b>rôle</b>.</li>
+      <li><b>La data dit <i>où</i> regarder ; la VOD dit <i>pourquoi</i>.</b> Chaque anomalie stat = une revue vidéo à faire.</li>
+      <li><b>Tendance &gt; instantané.</b> Suivre l'évolution sur plusieurs journées, pas un seul jour.</li>
+      <li><b>KPI par rôle.</b> Définir 3-4 objectifs propres à chaque rôle et juger chacun sur les siens.</li>
+      <li><b>Talent = régularité + plafond + progression + perf contre les forts + conversion en victoires + coachabilité.</b> Un joueur comme Poissard (fort, sous-entouré, calendrier difficile) est exactement le profil à observer en VOD avant de conclure.</li>
+    </ul>
+    <p class="foot">En résumé : ces indices sont d'<b>excellentes questions, pas des réponses</b>. Ils pointent où creuser (qui porte, qui profite, qui brille contre du lourd) — la décision, elle, se prend en croisant data, vidéo et contexte humain.</p>
+  </div>
+</section>
+
+<section>
+  <h2>Méthodologie</h2>
+  <div class="method">
+    <h3>Constitution des données</h3>
+    <p>Pour couvrir la journée entière de chaque équipe (et pas seulement les matchs contre LVL), les données
+       ont été agrégées depuis les <b>profils publics des 8 joueurs</b> via l'API publique EVA
+       (<code>api.eva.gg/graphql · listLastAfterhGameHistoriesByUserAndSeason</code>), puis
+       <b>dédupliquées par identifiant de match</b>. 10 matchs uniques du 19 septembre 2026 ont été retenus.</p>
+    <p>Les statistiques « arme » ne sont pas exposées par l'API. Le classement est un cumul de la journée (format toutes-rondes).</p>
+  </div>
+</section>
+<footer>Généré le 2026-09-19 · Analyse non officielle · Données de jeu EVA (© EVA / Esports Virtual Arenas)</footer>
+</div></div>
+</body>
+</html>
