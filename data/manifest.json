@@ -1,18 +1,9 @@
 [
   {
-    "slug": "2026-09-23-lvl",
-    "date": "2026-09-23",
-    "date_str": "23 septembre 2026",
-    "team_label": "LVL",
-    "season": "Saison 9 (active)",
-    "has_team": true,
-    "has_global": true
-  },
-  {
     "slug": "2026-09-23-lvl-21h41",
     "date": "2026-09-23",
     "date_str": "23 septembre 2026 (à partir de 21h41)",
-    "team_label": "LVL-21h41",
+    "team_label": "LVL-21h41 vs PW",
     "season": "Saison 9 (active)",
     "has_team": true,
     "has_global": true
@@ -30,7 +21,7 @@
     "slug": "2026-09-19-lvl",
     "date": "2026-09-19",
     "date_str": "19 septembre 2026",
-    "team_label": "LVL",
+    "team_label": "LVL vs SYN",
     "season": "Saison 9 (active)",
     "has_team": true,
     "has_global": true
@@ -57,7 +48,7 @@
     "slug": "2026-09-12-lvl",
     "date": "2026-09-12",
     "date_str": "12 septembre 2026",
-    "team_label": "LVL",
+    "team_label": "LVL vs SRCL",
     "season": "Saison 9 (active)",
     "has_team": true,
     "has_global": true
@@ -66,7 +57,7 @@
     "slug": "2026-09-03-lvl",
     "date": "2026-09-03",
     "date_str": "3 septembre 2026",
-    "team_label": "LVL",
+    "team_label": "LVL vs STL",
     "season": "Saison 9 (active)",
     "has_team": true,
     "has_global": true
