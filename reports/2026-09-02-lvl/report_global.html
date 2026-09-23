@@ -7,13 +7,13 @@
 <title>Rapport global — 2 septembre 2026</title>
 <style>
 :root{color-scheme:light dark;--surface-1:#fcfcfb;--plane:#f4f3f0;--card:#fff;--text-primary:#0b0b0b;--text-secondary:#52514e;
---muted:#898781;--grid:#e1e0d9;--axis:#c3c2b7;--border:rgba(11,11,11,.10);--good:#0ca30c;--bad:#d03b3b;--t-ALLIANCE:#2a78d6;--t-REBELS:#1baf7a;}
+--muted:#898781;--grid:#e1e0d9;--axis:#c3c2b7;--border:rgba(11,11,11,.10);--good:#0ca30c;--bad:#d03b3b;--t-ALLIANCE:#2a78d6;--t-REBELS:#eb6834;}
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--surface-1:#1a1a19;--plane:#0d0d0d;--card:#161615;
 --text-primary:#fff;--text-secondary:#c3c2b7;--muted:#898781;--grid:#2c2c2a;--axis:#383835;
---border:rgba(255,255,255,.10);--good:#0ca30c;--bad:#e66767;--t-ALLIANCE:#3987e5;--t-REBELS:#199e70;}}
+--border:rgba(255,255,255,.10);--good:#0ca30c;--bad:#e66767;--t-ALLIANCE:#3987e5;--t-REBELS:#d95926;}}
 :root[data-theme="dark"]{--surface-1:#1a1a19;--plane:#0d0d0d;--card:#161615;--text-primary:#fff;
 --text-secondary:#c3c2b7;--muted:#898781;--grid:#2c2c2a;--axis:#383835;--border:rgba(255,255,255,.10);
---good:#0ca30c;--bad:#e66767;--t-ALLIANCE:#3987e5;--t-REBELS:#199e70;}
+--good:#0ca30c;--bad:#e66767;--t-ALLIANCE:#3987e5;--t-REBELS:#d95926;}
 *{box-sizing:border-box}
 html,body{margin:0;background:var(--plane);color:var(--text-primary)}
 .viz-root{font-family:system-ui,-apple-system,"Segoe UI",sans-serif;color:var(--text-primary);
@@ -44,7 +44,7 @@ table.stats tbody tr:hover td{background:color-mix(in srgb,var(--muted) 12%,tran
 .carry.up{background:color-mix(in srgb,var(--good) 18%,transparent);color:var(--good)}
 .carry.dn{background:color-mix(in srgb,var(--muted) 20%,transparent);color:var(--text-secondary)}
 .gidx{font-weight:800;padding:2px 10px;border-radius:20px;font-variant-numeric:tabular-nums;
-  background:color-mix(in srgb,var(--t-LVL) 16%,transparent);color:var(--t-LVL)}
+  background:color-mix(in srgb,var(--t-ALLIANCE) 16%,transparent);color:var(--t-ALLIANCE)}
 table.mtab td.sc{font-weight:700;width:34px;text-align:center} .wl-w{color:var(--good)} .wl-l{color:var(--text-secondary)}
 table.mtab td.dash{color:var(--muted);text-align:center;width:14px} td.ta{text-align:right;font-weight:700} td.tb{text-align:left;font-weight:700} td.wn{font-weight:700}
 table.matrix{border-collapse:separate;border-spacing:6px;width:100%;font-variant-numeric:tabular-nums}
@@ -54,6 +54,9 @@ table.matrix td b{font-size:15px;display:block} .matrix .pd{font-size:11px;color
 .matrix .cwin{background:color-mix(in srgb,var(--good) 16%,transparent)}
 .matrix .closs{background:color-mix(in srgb,var(--bad) 14%,transparent)}
 .matrix .diag{background:transparent;border:none;color:var(--muted)} .matrix .na{color:var(--muted)}
+.pips{display:flex;gap:2px;flex-wrap:wrap;justify-content:center;margin-top:4px}
+.pip{width:8px;height:8px;border-radius:2px;flex:none}
+.pip.w{background:var(--good)} .pip.l{background:var(--bad)} .pip.d{background:var(--muted)}
 text.rowlabel{font:700 15px system-ui} text.rowlabel2{font:600 12px system-ui}
 text.barval{fill:var(--text-secondary);font:700 14px system-ui;font-variant-numeric:tabular-nums}
 text.barval2{fill:var(--text-secondary);font:700 11px system-ui;font-variant-numeric:tabular-nums}
@@ -67,7 +70,7 @@ table.mini th{color:var(--muted);font-weight:600;font-size:10.5px;text-transform
 table.mini td{text-align:right;padding:5px;border-bottom:1px solid var(--border)} table.mini th:first-child,td.pn{text-align:left}
 .legend{display:flex;gap:16px;flex-wrap:wrap;margin:0 0 14px;font-size:13px;color:var(--text-secondary)}
 .legend span{display:inline-flex;align-items:center;gap:7px} .legend i{width:12px;height:12px;border-radius:3px}
-.analyst{background:var(--card);border:1px solid var(--border);border-left:4px solid var(--t-YK);border-radius:14px;padding:20px 24px;font-size:13.5px;color:var(--text-secondary)}
+.analyst{background:var(--card);border:1px solid var(--border);border-left:4px solid var(--t-ALLIANCE);border-radius:14px;padding:20px 24px;font-size:13.5px;color:var(--text-secondary)}
 .analyst .intro{font-size:14.5px;color:var(--text-primary);margin:0 0 4px}
 .analyst h3{font-size:14px;color:var(--text-primary);margin:18px 0 6px;letter-spacing:-.01em}
 .analyst ul{margin:0;padding-left:20px} .analyst li{margin:5px 0;line-height:1.55}
@@ -116,6 +119,13 @@ footer{margin-top:36px;color:var(--muted);font-size:12px;text-align:center}
   <h2>Confrontations directes</h2>
   <p class="lead">Bilan de chaque équipe (ligne) face à chaque adversaire (colonne) : victoires–défaites, et points marqués-encaissés en dessous. Vert = série gagnée, rouge = perdue.</p>
   <div class="tblscroll" style="padding:12px"><table class="matrix"><thead><tr><th></th><th style="color:var(--t-ALLIANCE)">ALLIANCE</th><th style="color:var(--t-REBELS)">REBELS</th></tr></thead><tbody><tr><th style="color:var(--t-ALLIANCE)">ALLIANCE</th><td class="diag">—</td><td class="cwin"><b>10–3</b><span class="pd">1191-751</span></td></tr><tr><th style="color:var(--t-REBELS)">REBELS</th><td class="closs"><b>3–10</b><span class="pd">751-1191</span></td><td class="diag">—</td></tr></tbody></table></div>
+</section>
+
+<section>
+  <h2>Winrate par carte, par équipe</h2>
+  <p class="lead">Pourcentage de victoires de chaque équipe (ligne) sur chaque carte (colonne), avec le bilan V-D en dessous.
+     Échantillon limité à la journée — à lire avec prudence quand une équipe n'a joué qu'une ou deux fois une carte donnée.</p>
+  <div class="tblscroll" style="padding:12px"><table class="matrix"><thead><tr><th></th><th>Engine</th><th>Artefact</th><th>Ceres</th><th>Atlantis</th><th>Polaris</th><th>The Cliff</th><th>Silva</th><th>Outlaw</th><th>Reef Point</th></tr></thead><tbody><tr><th style="color:var(--t-ALLIANCE)">ALLIANCE</th><td class="cwin"><b>100%</b><div class="pips"><span class="pip w"></span><span class="pip w"></span></div></td><td class="cwin"><b>100%</b><div class="pips"><span class="pip w"></span></div></td><td class="closs"><b>33%</b><div class="pips"><span class="pip w"></span><span class="pip l"></span><span class="pip l"></span></div></td><td class="cwin"><b>100%</b><div class="pips"><span class="pip w"></span></div></td><td class="cwin"><b>100%</b><div class="pips"><span class="pip w"></span><span class="pip w"></span></div></td><td class="cwin"><b>100%</b><div class="pips"><span class="pip w"></span></div></td><td class="cwin"><b>100%</b><div class="pips"><span class="pip w"></span></div></td><td class="cwin"><b>100%</b><div class="pips"><span class="pip w"></span></div></td><td class="closs"><b>0%</b><div class="pips"><span class="pip l"></span></div></td></tr><tr><th style="color:var(--t-REBELS)">REBELS</th><td class="closs"><b>0%</b><div class="pips"><span class="pip l"></span><span class="pip l"></span></div></td><td class="closs"><b>0%</b><div class="pips"><span class="pip l"></span></div></td><td class="cwin"><b>67%</b><div class="pips"><span class="pip l"></span><span class="pip w"></span><span class="pip w"></span></div></td><td class="closs"><b>0%</b><div class="pips"><span class="pip l"></span></div></td><td class="closs"><b>0%</b><div class="pips"><span class="pip l"></span><span class="pip l"></span></div></td><td class="closs"><b>0%</b><div class="pips"><span class="pip l"></span></div></td><td class="closs"><b>0%</b><div class="pips"><span class="pip l"></span></div></td><td class="closs"><b>0%</b><div class="pips"><span class="pip l"></span></div></td><td class="cwin"><b>100%</b><div class="pips"><span class="pip w"></span></div></td></tr></tbody></table></div>
 </section>
 
 <section>
@@ -224,14 +234,14 @@ footer{margin-top:36px;color:var(--muted);font-size:12px;text-align:center}
   <h2>Méthodologie</h2>
   <div class="method">
     <h3>Constitution des données</h3>
-    <p>Pour couvrir la journée entière de chaque équipe (et pas seulement les matchs contre LVL), les données
+    <p>Pour couvrir la journée entière de chaque équipe (et pas seulement les matchs contre ALLIANCE), les données
        ont été agrégées depuis les <b>profils publics des 13 joueurs</b> via l'API publique EVA
        (<code>api.eva.gg/graphql · listLastAfterhGameHistoriesByUserAndSeason</code>), puis
        <b>dédupliquées par identifiant de match</b>. 13 matchs uniques du 2 septembre 2026 ont été retenus.</p>
     <p>Les statistiques « arme » ne sont pas exposées par l'API. Le classement est un cumul de la journée (format toutes-rondes).</p>
   </div>
 </section>
-<footer>Généré le 2026-09-02 · Analyse non officielle · Données de jeu EVA (© EVA / Esports Virtual Arenas)</footer>
+<footer>Généré le 24 septembre 2026 · Analyse non officielle · Données de jeu EVA (© EVA / Esports Virtual Arenas)</footer>
 </div></div>
 </body>
 </html>

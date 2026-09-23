@@ -12,21 +12,21 @@
   --text-primary:#0b0b0b; --text-secondary:#52514e; --muted:#898781;
   --grid:#e1e0d9; --axis:#c3c2b7; --border:rgba(11,11,11,.10);
   --series-1:#2a78d6; --good:#0ca30c; --bad:#d03b3b;
-  --c-LVLxNephtis:#2a78d6;--c-LVLxRaisin:#1baf7a;--c-LVLxMenin:#eda100;--c-LVLxVins20021:#008300;
+  --c-LVLxNephtis:#2a78d6;--c-LVLxRaisin:#eb6834;--c-LVLxMenin:#1baf7a;--c-LVLxVins20021:#eda100;
 }
 @media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){
   --surface-1:#1a1a19; --plane:#0d0d0d; --card:#161615;
   --text-primary:#ffffff; --text-secondary:#c3c2b7; --muted:#898781;
   --grid:#2c2c2a; --axis:#383835; --border:rgba(255,255,255,.10);
   --series-1:#3987e5; --good:#0ca30c; --bad:#e66767;
-  --c-LVLxNephtis:#3987e5;--c-LVLxRaisin:#199e70;--c-LVLxMenin:#c98500;--c-LVLxVins20021:#008300;
+  --c-LVLxNephtis:#3987e5;--c-LVLxRaisin:#d95926;--c-LVLxMenin:#199e70;--c-LVLxVins20021:#c98500;
 }}
 :root[data-theme="dark"]{
   --surface-1:#1a1a19; --plane:#0d0d0d; --card:#161615;
   --text-primary:#ffffff; --text-secondary:#c3c2b7; --muted:#898781;
   --grid:#2c2c2a; --axis:#383835; --border:rgba(255,255,255,.10);
   --series-1:#3987e5; --good:#0ca30c; --bad:#e66767;
-  --c-LVLxNephtis:#3987e5;--c-LVLxRaisin:#199e70;--c-LVLxMenin:#c98500;--c-LVLxVins20021:#008300;
+  --c-LVLxNephtis:#3987e5;--c-LVLxRaisin:#d95926;--c-LVLxMenin:#199e70;--c-LVLxVins20021:#c98500;
 }
 *{box-sizing:border-box}
 html,body{margin:0;background:var(--plane);color:var(--text-primary)}
@@ -60,6 +60,10 @@ table.stats td.pname{font-weight:650}
 table.stats tbody tr:hover{background:color-mix(in srgb,var(--series-1) 8%,transparent)}
 table.stats td.hl{font-weight:700;color:var(--text-primary)}
 .dot{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:8px;vertical-align:middle}
+table.stats td.wrcell{text-align:left;white-space:normal}
+.pips{display:flex;gap:3px;flex-wrap:wrap}
+.pip{width:12px;height:12px;border-radius:3px;flex:none}
+.pip.w{background:var(--good)} .pip.l{background:var(--bad)} .pip.d{background:var(--muted)}
 .tblscroll{overflow-x:auto;border:1px solid var(--border);border-radius:14px;background:var(--card)}
 .legend{display:flex;gap:18px;flex-wrap:wrap;margin:0 0 14px;font-size:13px;color:var(--text-secondary)}
 .legend span{display:inline-flex;align-items:center;gap:7px}
@@ -247,6 +251,13 @@ footer{margin-top:36px;color:var(--muted);font-size:12px;text-align:center}
 </section>
 
 <section>
+  <h2>Winrate par carte</h2>
+  <p class="lead">Bilan de l'équipe LVL sur chaque carte jouée ce jour-là. Échantillon limité à la journée —
+     à interpréter avec prudence quand une carte n'a été jouée qu'une ou deux fois.</p>
+  <div class="tblscroll"><table class="stats"><thead><tr><th class="pname">Carte</th><th>Parties</th><th>V</th><th>D</th><th>Winrate</th><th>Parties (chrono.)</th></tr></thead><tbody></tbody></table></div>
+</section>
+
+<section>
   <h2>Méthodologie &amp; définitions</h2>
   <div class="method">
     <h3>Source des données</h3>
@@ -268,7 +279,7 @@ footer{margin-top:36px;color:var(--muted);font-size:12px;text-align:center}
   </div>
 </section>
 
-<footer>Généré le 2026-09-02 · Rapport non officiel · Données de jeu EVA (© EVA / Esports Virtual Arenas)</footer>
+<footer>Généré le 24 septembre 2026 · Rapport non officiel · Données de jeu EVA (© EVA / Esports Virtual Arenas)</footer>
 </div>
 </div>
 </body>

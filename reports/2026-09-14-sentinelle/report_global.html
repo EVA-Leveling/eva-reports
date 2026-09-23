@@ -7,13 +7,13 @@
 <title>Rapport global — 14 septembre 2026</title>
 <style>
 :root{color-scheme:light dark;--surface-1:#fcfcfb;--plane:#f4f3f0;--card:#fff;--text-primary:#0b0b0b;--text-secondary:#52514e;
---muted:#898781;--grid:#e1e0d9;--axis:#c3c2b7;--border:rgba(11,11,11,.10);--good:#0ca30c;--bad:#d03b3b;--t-SENTINELLE:#2a78d6;--t-ALGONKINGS:#1baf7a;--t-TS:#eda100;}
+--muted:#898781;--grid:#e1e0d9;--axis:#c3c2b7;--border:rgba(11,11,11,.10);--good:#0ca30c;--bad:#d03b3b;--t-SENTINELLE:#2a78d6;--t-ALGONKINGS:#eb6834;--t-TS:#1baf7a;}
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--surface-1:#1a1a19;--plane:#0d0d0d;--card:#161615;
 --text-primary:#fff;--text-secondary:#c3c2b7;--muted:#898781;--grid:#2c2c2a;--axis:#383835;
---border:rgba(255,255,255,.10);--good:#0ca30c;--bad:#e66767;--t-SENTINELLE:#3987e5;--t-ALGONKINGS:#199e70;--t-TS:#c98500;}}
+--border:rgba(255,255,255,.10);--good:#0ca30c;--bad:#e66767;--t-SENTINELLE:#3987e5;--t-ALGONKINGS:#d95926;--t-TS:#199e70;}}
 :root[data-theme="dark"]{--surface-1:#1a1a19;--plane:#0d0d0d;--card:#161615;--text-primary:#fff;
 --text-secondary:#c3c2b7;--muted:#898781;--grid:#2c2c2a;--axis:#383835;--border:rgba(255,255,255,.10);
---good:#0ca30c;--bad:#e66767;--t-SENTINELLE:#3987e5;--t-ALGONKINGS:#199e70;--t-TS:#c98500;}
+--good:#0ca30c;--bad:#e66767;--t-SENTINELLE:#3987e5;--t-ALGONKINGS:#d95926;--t-TS:#199e70;}
 *{box-sizing:border-box}
 html,body{margin:0;background:var(--plane);color:var(--text-primary)}
 .viz-root{font-family:system-ui,-apple-system,"Segoe UI",sans-serif;color:var(--text-primary);
@@ -44,7 +44,7 @@ table.stats tbody tr:hover td{background:color-mix(in srgb,var(--muted) 12%,tran
 .carry.up{background:color-mix(in srgb,var(--good) 18%,transparent);color:var(--good)}
 .carry.dn{background:color-mix(in srgb,var(--muted) 20%,transparent);color:var(--text-secondary)}
 .gidx{font-weight:800;padding:2px 10px;border-radius:20px;font-variant-numeric:tabular-nums;
-  background:color-mix(in srgb,var(--t-LVL) 16%,transparent);color:var(--t-LVL)}
+  background:color-mix(in srgb,var(--t-SENTINELLE) 16%,transparent);color:var(--t-SENTINELLE)}
 table.mtab td.sc{font-weight:700;width:34px;text-align:center} .wl-w{color:var(--good)} .wl-l{color:var(--text-secondary)}
 table.mtab td.dash{color:var(--muted);text-align:center;width:14px} td.ta{text-align:right;font-weight:700} td.tb{text-align:left;font-weight:700} td.wn{font-weight:700}
 table.matrix{border-collapse:separate;border-spacing:6px;width:100%;font-variant-numeric:tabular-nums}
@@ -70,7 +70,7 @@ table.mini th{color:var(--muted);font-weight:600;font-size:10.5px;text-transform
 table.mini td{text-align:right;padding:5px;border-bottom:1px solid var(--border)} table.mini th:first-child,td.pn{text-align:left}
 .legend{display:flex;gap:16px;flex-wrap:wrap;margin:0 0 14px;font-size:13px;color:var(--text-secondary)}
 .legend span{display:inline-flex;align-items:center;gap:7px} .legend i{width:12px;height:12px;border-radius:3px}
-.analyst{background:var(--card);border:1px solid var(--border);border-left:4px solid var(--t-YK);border-radius:14px;padding:20px 24px;font-size:13.5px;color:var(--text-secondary)}
+.analyst{background:var(--card);border:1px solid var(--border);border-left:4px solid var(--t-SENTINELLE);border-radius:14px;padding:20px 24px;font-size:13.5px;color:var(--text-secondary)}
 .analyst .intro{font-size:14.5px;color:var(--text-primary);margin:0 0 4px}
 .analyst h3{font-size:14px;color:var(--text-primary);margin:18px 0 6px;letter-spacing:-.01em}
 .analyst ul{margin:0;padding-left:20px} .analyst li{margin:5px 0;line-height:1.55}
@@ -245,7 +245,7 @@ footer{margin-top:36px;color:var(--muted);font-size:12px;text-align:center}
     <p>Les statistiques « arme » ne sont pas exposées par l'API. Le classement est un cumul de la journée (format toutes-rondes).</p>
   </div>
 </section>
-<footer>Généré le 2026-09-14 · Analyse non officielle · Données de jeu EVA (© EVA / Esports Virtual Arenas)</footer>
+<footer>Généré le 24 septembre 2026 · Analyse non officielle · Données de jeu EVA (© EVA / Esports Virtual Arenas)</footer>
 </div></div>
 </body>
 </html>
