@@ -9,6 +9,15 @@
     "has_global": true
   },
   {
+    "slug": "2026-09-23-lvl-mix",
+    "date": "2026-09-23",
+    "date_str": "23 septembre 2026 (mix, équipes tournantes)",
+    "team_label": "LVL-Mix",
+    "season": "Saison 9 (active)",
+    "has_team": true,
+    "has_global": true
+  },
+  {
     "slug": "2026-09-21-gast",
     "date": "2026-09-21",
     "date_str": "21 septembre 2026",
