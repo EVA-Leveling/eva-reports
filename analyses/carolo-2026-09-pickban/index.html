@@ -1,0 +1,266 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light dark">
+<title>Draft Carolo Septembre — Leveling</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+:root{
+  --bg:#EEF1F4; --surface:#FFFFFF; --surface-2:#F6F8FA; --ink:#15212C; --muted:#5A6A79; --line:#D5DCE3;
+  --accent:#2C57CF;
+  --pick:#17784F; --pick-bg:#DCF1E6; --pick-soft:#EDF7F1;
+  --ban:#B8352D;  --ban-bg:#F8DEDB;  --ban-soft:#FBEEEC;
+  --avoid:#9A6412; --avoid-bg:#F7EAD2;
+  --h-p2:#BFE3CF; --h-p1:#E1F1E7; --h-0:#F1F3F5; --h-n1:#F6E2DF; --h-n2:#EDC3BE;
+  --display:"Barlow Condensed","Arial Narrow",system-ui,sans-serif;
+  --body:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Consolas,monospace;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    color-scheme:dark;
+    --bg:#0E151C; --surface:#151F29; --surface-2:#1A2632; --ink:#E4EBF2; --muted:#94A4B4; --line:#2A3847;
+    --accent:#86A3FF;
+    --pick:#5BD199; --pick-bg:#173A2A; --pick-soft:#142C22;
+    --ban:#F2837A; --ban-bg:#44201D; --ban-soft:#32201F;
+    --avoid:#E5B866; --avoid-bg:#3A2D15;
+    --h-p2:#1D4A34; --h-p1:#1A3328; --h-0:#1A2632; --h-n1:#3A2322; --h-n2:#5A2A26;
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --bg:#0E151C; --surface:#151F29; --surface-2:#1A2632; --ink:#E4EBF2; --muted:#94A4B4; --line:#2A3847;
+  --accent:#86A3FF;
+  --pick:#5BD199; --pick-bg:#173A2A; --pick-soft:#142C22;
+  --ban:#F2837A; --ban-bg:#44201D; --ban-soft:#32201F;
+  --avoid:#E5B866; --avoid-bg:#3A2D15;
+  --h-p2:#1D4A34; --h-p1:#1A3328; --h-0:#1A2632; --h-n1:#3A2322; --h-n2:#5A2A26;
+}
+body{background:var(--bg);color:var(--ink);font:15px/1.55 var(--body);padding:0 16px}
+.wrap{max-width:1180px;margin:0 auto;padding-block:32px 56px;display:flex;flex-direction:column;gap:40px}
+h1,h2,h3,h4{font-family:var(--display);letter-spacing:.01em;text-wrap:balance;margin:0}
+h1{font-size:clamp(34px,5vw,52px);font-weight:700;line-height:1}
+h2{font-size:28px;font-weight:600}
+h3{font-size:24px;font-weight:600}
+h4{font-size:15px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}
+p{margin:0;max-width:72ch}
+.eyebrow{font:500 12px/1 var(--mono);text-transform:uppercase;letter-spacing:.12em;color:var(--accent)}
+header.top{display:flex;flex-direction:column;gap:14px}
+.lede{color:var(--muted)}
+.fixtures{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
+.fx{background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:14px 16px;display:flex;flex-direction:column;gap:4px;text-decoration:none;color:inherit}
+.fx:hover,.fx:focus-visible{border-color:var(--accent);outline:none}
+.fx .t{font:500 13px var(--mono);color:var(--muted)}
+.fx .n{font:600 24px/1.1 var(--display)}
+.fx .r{font-size:13px;color:var(--muted)}
+.rules{background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:16px 18px;display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:18px}
+.rules ol{margin:6px 0 0;padding-left:20px;font-size:14px}
+.rules ol li{padding:1px 0}
+.rules .a{color:var(--accent);font-weight:600}
+.rules p{font-size:14px;margin-top:6px}
+section{display:flex;flex-direction:column;gap:14px}
+.scroll{overflow-x:auto;border:1px solid var(--line);border-radius:6px;background:var(--surface)}
+table{border-collapse:collapse;width:100%}
+th,td{text-align:left;vertical-align:top}
+thead th{font:600 16px/1.1 var(--display);letter-spacing:.02em;padding:12px 10px;border-bottom:1px solid var(--line);white-space:nowrap;background:var(--surface-2)}
+thead th small{display:block;font:400 11px var(--mono);color:var(--muted);letter-spacing:0;margin-top:2px}
+.matrix{min-width:1000px}
+.matrix th.opp{padding:12px 14px;border-right:1px solid var(--line);white-space:nowrap;background:var(--surface-2)}
+.matrix th.opp .t{display:block;font:500 12px var(--mono);color:var(--muted)}
+.matrix th.opp .n{font:600 22px/1.1 var(--display)}
+.matrix tbody tr+tr td,.matrix tbody tr+tr th{border-top:1px solid var(--line)}
+.cell{padding:10px;display:table-cell;font:12px/1.5 var(--mono);font-variant-numeric:tabular-nums}
+.cell .duo{display:block;color:var(--muted);white-space:nowrap}
+.cell .duo b{font-weight:500;color:var(--ink);display:inline-block;min-width:3.4em}
+.mg{color:var(--muted)}
+.na{color:var(--muted);font-style:italic}
+.chip{display:inline-block;font:600 13px/1 var(--display);text-transform:uppercase;letter-spacing:.08em;padding:5px 8px 4px;border-radius:3px;margin-bottom:6px;background:var(--h-0);color:var(--muted)}
+.cell.pick{background:var(--pick-soft)} .cell.pick .chip,.chip.pick{background:var(--pick);color:var(--surface)}
+.cell.pick.soft{background:transparent} .cell.pick.soft .chip,.chip.pick.soft{background:var(--pick-bg);color:var(--pick)}
+.cell.ban{background:var(--ban-soft)} .cell.ban .chip,.chip.ban{background:var(--ban);color:var(--surface)}
+.cell.ban.soft{background:transparent} .cell.ban.soft .chip,.chip.ban.soft{background:var(--ban-bg);color:var(--ban)}
+.cell.avoid .chip,.chip.avoid{background:var(--avoid-bg);color:var(--avoid)}
+.legend{display:flex;flex-wrap:wrap;gap:8px 16px;font-size:13px;color:var(--muted);align-items:center}
+.legend .chip{margin:0 6px 0 0}
+.plans{display:grid;grid-template-columns:1fr;gap:16px}
+.plan{background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:20px;display:flex;flex-direction:column;gap:14px}
+.plan header .t{font:500 12px var(--mono);color:var(--muted)}
+.plan .read{color:var(--ink)}
+.plan .cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px}
+.plan ul{list-style:none;margin:8px 0 0;padding:0;display:flex;flex-direction:column;gap:8px}
+.plan li{display:grid;grid-template-columns:112px 96px 1fr;gap:10px;align-items:baseline;font-size:14px}
+.plan li .chip{margin:0;text-align:center}
+.plan li .mp{font:600 17px/1.2 var(--display)}
+.plan li .why{color:var(--muted)}
+.plan .rest{border-top:1px dashed var(--line);padding-top:6px}
+.plan .theirs{font-size:14px;background:var(--surface-2);border-radius:4px;padding:10px 12px;max-width:none}
+.data{min-width:880px;font:13px/1.4 var(--mono);font-variant-numeric:tabular-nums}
+.data th[scope=row]{font:600 18px var(--display);padding:10px 14px;background:var(--surface-2);border-right:1px solid var(--line);white-space:nowrap}
+.data td{padding:10px;white-space:nowrap}
+.data tbody tr+tr>*{border-top:1px solid var(--line)}
+.data .nn{display:block;font-size:11px;color:var(--muted)}
+.h-p2{background:var(--h-p2)} .h-p1{background:var(--h-p1)} .h-0{background:var(--h-0)} .h-n1{background:var(--h-n1)} .h-n2{background:var(--h-n2)} .h-na{background:transparent}
+.h2hs{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px}
+.h2h{background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:14px 16px}
+.h2h ul{list-style:none;margin:8px 0 0;padding:0;font:13px/1.9 var(--mono);font-variant-numeric:tabular-nums}
+.h2h li{display:grid;grid-template-columns:48px 54px 1fr auto;gap:8px;border-left:3px solid var(--line);padding-left:8px}
+.h2h li.w{border-left-color:var(--pick)} .h2h li.l{border-left-color:var(--ban)}
+.h2h .d,.h2h .s{color:var(--muted)}
+.h2h li.w .sc{color:var(--pick);font-weight:500} .h2h li.l .sc{color:var(--ban);font-weight:500}
+.note{font-size:13px;color:var(--muted)}
+.method{background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:18px 20px;display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px;font-size:14px}
+.method ul{margin:8px 0 0;padding-left:18px;display:flex;flex-direction:column;gap:6px}
+a{color:var(--accent)}
+a:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+@media (max-width:560px){
+  .plan li{grid-template-columns:96px 1fr}
+  .plan li .why{grid-column:1/-1}
+}
+
+*{box-sizing:border-box} body{margin:0}
+</style>
+</head>
+<body>
+<p style="max-width:1180px;margin:16px auto 0;font-size:13px"><a href="../../">← Tous les rapports</a></p>
+
+
+<div class="wrap">
+<header class="top">
+  <span class="eyebrow">Carolo League · Septembre 2026 · Groupe 1 · lundi 28/09</span>
+  <h1>Draft des maps : Leveling</h1>
+  <p class="lede">Maps à choisir et à bannir contre les trois adversaires de la soirée, sur le pool de septembre. Chaque recommandation s’appuie sur nos résultats par map, les leurs et nos face-à-face directs (Carolo de mai à août + scrims de la saison 9 depuis le 24/08).</p>
+  <div class="fixtures">
+    <a class="fx" href="#wyrm"><span class="t">19:20 · BO3</span><span class="n">vs WYRM</span><span class="r">Classement S2 : 3e, 255 pts</span></a>
+    <a class="fx" href="#mtm"><span class="t">20:40 · BO3</span><span class="n">vs xMatteam</span><span class="r">Classement S2 : 4e ex æquo, 245 pts</span></a>
+    <a class="fx" href="#srcl"><span class="t">22:40 · BO3</span><span class="n">vs SARCAL</span><span class="r">Classement S2 : 1er, 355 pts</span></a>
+  </div>
+</header>
+
+<div class="rules">
+  <div>
+    <h4>Pool de septembre (règlement, art. 5.1, période 3)</h4>
+    <p>Atlantis, Ceres, Engine, Polaris, Reef Point, Silva, The Cliff en Domination ; Outlaw en Hardpoint. Lunar Outpost (6-0 pour nous), Helios Station et Horizon sont sortis du pool.</p>
+  </div>
+  <div>
+    <h4>Ordre du draft (BO3)</h4>
+    <ol>
+      <li>Away bannit · Home bannit</li>
+      <li><span class="a">Away</span> choisit la map 1 · <span class="a">Home</span> choisit la map 2</li>
+      <li>Away bannit · Home bannit</li>
+      <li><span class="a">Away</span> choisit la map 3 parmi les 2 restantes</li>
+    </ol>
+  </div>
+  <div>
+    <h4>Pile ou face</h4>
+    <p>Away choisit 2 maps sur 3, dont la décisive. Home choisit le side et le personnage. Si on gagne le toss et qu’on n’a pas de préférence forte de side ou de perso, on prend <b>Away</b>.</p>
+  </div>
+</div>
+
+<section>
+  <h2>La matrice</h2>
+  <div class="legend">
+    <span><span class="chip ban">Ban 1/2</span>nos deux premiers bans</span>
+    <span><span class="chip ban soft">Ban 3</span>si la map est encore là au 2e tour de bans</span>
+    <span><span class="chip pick">Pick 1/2</span>nos maps à imposer</span>
+    <span><span class="chip pick soft">Décideur</span>celle à garder pour la map 3</span>
+    <span><span class="chip avoid">À éviter</span>ne pas la laisser en dernier</span>
+  </div>
+  <div class="scroll"><table class="matrix"><thead><tr><th></th><th scope="col">Atlantis</th><th scope="col">Ceres</th><th scope="col">Engine</th><th scope="col">Outlaw<small>Hardpoint</small></th><th scope="col">Polaris</th><th scope="col">Reef Point</th><th scope="col">Silva</th><th scope="col">The Cliff</th></tr></thead>
+<tbody><tr><th scope="row" class="opp"><span class="t">19:20</span><span class="n">WYRM</span></th><td class="cell pick soft"><span class="chip">Décideur</span>
+<span class="duo"><b>LVL</b> 5-3 <span class='mg'>-1</span></span><span class="duo"><b>WYRM</b> 3-6 <span class='mg'>-21</span></span></td><td class="cell pick"><span class="chip">Pick 2</span>
+<span class="duo"><b>LVL</b> 5-1 <span class='mg'>+25</span></span><span class="duo"><b>WYRM</b> 1-1 <span class='mg'>+23</span></span></td><td class="cell ban"><span class="chip">Ban 2</span>
+<span class="duo"><b>LVL</b> 4-2 <span class='mg'>+9</span></span><span class="duo"><b>WYRM</b> 4-7 <span class='mg'>+0</span></span></td><td class="cell pick soft"><span class="chip">Pick secours</span>
+<span class="duo"><b>LVL</b> 3-4 <span class='mg'>+13</span></span><span class="duo"><b>WYRM</b> 0-1 <span class='mg'>-60</span></span></td><td class="cell pick"><span class="chip">Pick 1</span>
+<span class="duo"><b>LVL</b> 9-4 <span class='mg'>+22</span></span><span class="duo"><b>WYRM</b> 2-3 <span class='mg'>-37</span></span></td><td class="cell ban soft"><span class="chip">Ban 3</span>
+<span class="duo"><b>LVL</b> 2-5 <span class='mg'>-27</span></span><span class="duo"><b>WYRM</b> 1-2 <span class='mg'>-42</span></span></td><td class="cell neutral"><span class="chip">Neutre</span>
+<span class="duo"><b>LVL</b> 4-3 <span class='mg'>+6</span></span><span class="duo"><b>WYRM</b> 3-2 <span class='mg'>-3</span></span></td><td class="cell ban"><span class="chip">Ban 1</span>
+<span class="duo"><b>LVL</b> 1-6 <span class='mg'>-49</span></span><span class="duo"><b>WYRM</b> 3-4 <span class='mg'>+3</span></span></td></tr><tr><th scope="row" class="opp"><span class="t">20:40</span><span class="n">xMatteam</span></th><td class="cell ban"><span class="chip">Ban 1</span>
+<span class="duo"><b>LVL</b> 5-3 <span class='mg'>-1</span></span><span class="duo"><b>MTM</b> 6-1 <span class='mg'>+42</span></span></td><td class="cell pick"><span class="chip">Pick 2</span>
+<span class="duo"><b>LVL</b> 5-1 <span class='mg'>+25</span></span><span class="duo"><b>MTM</b> <span class="na">—</span></span></td><td class="cell ban"><span class="chip">Ban 2</span>
+<span class="duo"><b>LVL</b> 4-2 <span class='mg'>+9</span></span><span class="duo"><b>MTM</b> 5-1 <span class='mg'>+12</span></span></td><td class="cell pick soft"><span class="chip">Décideur</span>
+<span class="duo"><b>LVL</b> 3-4 <span class='mg'>+13</span></span><span class="duo"><b>MTM</b> <span class="na">—</span></span></td><td class="cell pick"><span class="chip">Pick 1</span>
+<span class="duo"><b>LVL</b> 9-4 <span class='mg'>+22</span></span><span class="duo"><b>MTM</b> 0-2 <span class='mg'>-84</span></span></td><td class="cell avoid"><span class="chip">À éviter</span>
+<span class="duo"><b>LVL</b> 2-5 <span class='mg'>-27</span></span><span class="duo"><b>MTM</b> <span class="na">—</span></span></td><td class="cell pick soft"><span class="chip">Pick secours</span>
+<span class="duo"><b>LVL</b> 4-3 <span class='mg'>+6</span></span><span class="duo"><b>MTM</b> 1-1 <span class='mg'>+30</span></span></td><td class="cell ban soft"><span class="chip">Ban 3</span>
+<span class="duo"><b>LVL</b> 1-6 <span class='mg'>-49</span></span><span class="duo"><b>MTM</b> <span class="na">—</span></span></td></tr><tr><th scope="row" class="opp"><span class="t">22:40</span><span class="n">SARCAL</span></th><td class="cell pick soft"><span class="chip">Décideur</span>
+<span class="duo"><b>LVL</b> 5-3 <span class='mg'>-1</span></span><span class="duo"><b>SRCL</b> 3-4 <span class='mg'>-12</span></span></td><td class="cell pick"><span class="chip">Pick 2</span>
+<span class="duo"><b>LVL</b> 5-1 <span class='mg'>+25</span></span><span class="duo"><b>SRCL</b> 0-2 <span class='mg'>-64</span></span></td><td class="cell avoid"><span class="chip">À éviter</span>
+<span class="duo"><b>LVL</b> 4-2 <span class='mg'>+9</span></span><span class="duo"><b>SRCL</b> 5-3 <span class='mg'>-9</span></span></td><td class="cell ban soft"><span class="chip">Ban 3</span>
+<span class="duo"><b>LVL</b> 3-4 <span class='mg'>+13</span></span><span class="duo"><b>SRCL</b> 2-1 <span class='mg'>+12</span></span></td><td class="cell ban"><span class="chip">Ban 1</span>
+<span class="duo"><b>LVL</b> 9-4 <span class='mg'>+22</span></span><span class="duo"><b>SRCL</b> 6-2 <span class='mg'>+20</span></span></td><td class="cell neutral"><span class="chip">Neutre</span>
+<span class="duo"><b>LVL</b> 2-5 <span class='mg'>-27</span></span><span class="duo"><b>SRCL</b> 1-2 <span class='mg'>-3</span></span></td><td class="cell pick"><span class="chip">Pick 1</span>
+<span class="duo"><b>LVL</b> 4-3 <span class='mg'>+6</span></span><span class="duo"><b>SRCL</b> 3-3 <span class='mg'>-17</span></span></td><td class="cell ban"><span class="chip">Ban 2</span>
+<span class="duo"><b>LVL</b> 1-6 <span class='mg'>-49</span></span><span class="duo"><b>SRCL</b> 2-5 <span class='mg'>-15</span></span></td></tr></tbody></table></div>
+  <p class="note">Sous chaque étiquette : bilan victoires-défaites sur la map et marge moyenne (notre score moins le leur, Domination sur 100 ; — = jamais jouée). Première ligne : nous. Deuxième : l’adversaire, tous adversaires confondus.</p>
+</section>
+
+<section>
+  <h2>Plan par adversaire</h2>
+  <div class="plans"><article class="plan" id="wyrm">
+<header><span class="t">19:20 · 1er match</span><h3>Leveling vs WYRM</h3></header>
+<p class="read">WYRM tourne surtout sur Engine (11 maps) et The Cliff, et perd lourdement sur Polaris, Reef Point et Atlantis. Le 24/09 ils ont perdu leurs 10 maps de scrim contre DVGA et GNS. On leur retire leurs deux maps de confort et on les emmène sur Polaris et Ceres.</p>
+<div class="cols"><div><h4>Nos bans, par priorité</h4><ul><li><span class='chip ban'>Ban 1</span><span class='mp'>The Cliff</span><span class='why'>Notre pire map (1-6). Leur meilleure marge.</span></li><li><span class='chip ban'>Ban 2</span><span class='mp'>Engine</span><span class='why'>Seule map perdue contre eux (55-100, août). Leur map la plus jouée.</span></li><li><span class='chip ban soft'>Ban 3</span><span class='mp'>Reef Point</span><span class='why'>Faible des deux côtés, mais nous 2-5.</span></li></ul></div>
+<div><h4>Nos picks, par priorité</h4><ul><li><span class='chip pick'>Pick 1</span><span class='mp'>Polaris</span><span class='why'>Nous 9-4. Eux 2-3, −37 de marge moyenne.</span></li><li><span class='chip pick'>Pick 2</span><span class='mp'>Ceres</span><span class='why'>Nous 5-1, +25. Eux un seul résultat solide.</span></li><li><span class='chip pick soft'>Décideur</span><span class='mp'>Atlantis</span><span class='why'>Eux 3-6, −21. Nous 5-3.</span></li><li><span class='chip pick soft'>Pick secours</span><span class='mp'>Outlaw</span><span class='why'>Eux 0-1 (−60). Nous en forme variable.</span></li></ul></div></div>
+<div class="rest"><ul><li><span class='chip neutral'>Neutre</span><span class='mp'>Silva</span><span class='why'>Eux 3-2, nous 4-3. Aucun avantage net.</span></li></ul></div>
+<p class="theirs"><b>Leur ban probable :</b> Probablement Polaris ou Ceres (nos deux meilleures). Si les deux tombent, Atlantis devient le pick principal.</p>
+</article><article class="plan" id="mtm">
+<header><span class="t">20:40 · 2e match</span><h3>Leveling vs xMatteam</h3></header>
+<p class="read">xMatteam n’a plus joué de Carolo depuis le 17/08 et n’apparaît dans aucun scrim récupéré. Tout ce qu’on sait vient de l’ancien pool : ils sont très forts sur Atlantis et Engine, et s’effondrent sur Polaris. Les trois maps ajoutées en septembre (Ceres, Reef Point, Outlaw) sont un terrain inconnu pour eux et déjà travaillé pour nous.</p>
+<div class="cols"><div><h4>Nos bans, par priorité</h4><ul><li><span class='chip ban'>Ban 1</span><span class='mp'>Atlantis</span><span class='why'>Leur map signature : 6-1, +42 en Carolo.</span></li><li><span class='chip ban'>Ban 2</span><span class='mp'>Engine</span><span class='why'>Eux 5-1. Nous seulement 4-2.</span></li><li><span class='chip ban soft'>Ban 3</span><span class='mp'>The Cliff</span><span class='why'>Jamais jouée par xMatteam en 5 mois : ils la bannissent sans doute eux-mêmes. Sinon, on la retire.</span></li></ul></div>
+<div><h4>Nos picks, par priorité</h4><ul><li><span class='chip pick'>Pick 1</span><span class='mp'>Polaris</span><span class='why'>Eux 0-2, dont 0-100 contre nous en juillet.</span></li><li><span class='chip pick'>Pick 2</span><span class='mp'>Ceres</span><span class='why'>Nouvelle map (pool de sept.) : aucune donnée chez eux, nous 5-1.</span></li><li><span class='chip pick soft'>Décideur</span><span class='mp'>Outlaw</span><span class='why'>Hardpoint, nouveau pool. Aucune donnée chez eux, nous l’avons beaucoup jouée en scrim.</span></li><li><span class='chip pick soft'>Pick secours</span><span class='mp'>Silva</span><span class='why'>Eux 1-1 (+30). Nous 4-3.</span></li></ul></div></div>
+<div class="rest"><ul><li><span class='chip avoid'>À éviter</span><span class='mp'>Reef Point</span><span class='why'>Aucune donnée chez eux, mais nous 2-5.</span></li></ul></div>
+<p class="theirs"><b>Leur ban probable :</b> Polaris, sans doute (0-100 contre nous). Dans ce cas, pick Ceres puis Outlaw ou Silva.</p>
+</article><article class="plan" id="srcl">
+<header><span class="t">22:40 · 3e match</span><h3>Leveling vs SARCAL</h3></header>
+<p class="read">SARCAL est 1er du classement S2 (355 pts). Bannir Polaris, notre meilleure map, est ici le bon choix : c’est aussi leur meilleure, et ils nous y ont battus deux fois. Leurs points faibles, Ceres et Silva, sont justement deux maps où on les a écrasés le 12/09.</p>
+<div class="cols"><div><h4>Nos bans, par priorité</h4><ul><li><span class='chip ban'>Ban 1</span><span class='mp'>Polaris</span><span class='why'>Leur meilleure map (6-2, +20) et 0-2 pour nous contre eux (91-100, 53-100).</span></li><li><span class='chip ban'>Ban 2</span><span class='mp'>The Cliff</span><span class='why'>Nous 1-6. 0-100 contre eux le 12/09.</span></li><li><span class='chip ban soft'>Ban 3</span><span class='mp'>Outlaw</span><span class='why'>Ils nous ont battus 100-59. Eux 2-1.</span></li></ul></div>
+<div><h4>Nos picks, par priorité</h4><ul><li><span class='chip pick'>Pick 1</span><span class='mp'>Silva</span><span class='why'>Eux 3-3, −17. Nous 100-1 contre eux le 12/09.</span></li><li><span class='chip pick'>Pick 2</span><span class='mp'>Ceres</span><span class='why'>Eux 0-2, −64. Nous 100-50 contre eux.</span></li><li><span class='chip pick soft'>Décideur</span><span class='mp'>Atlantis</span><span class='why'>1-1 contre eux (100-88 en Carolo, 90-100 en scrim). Eux 3-4.</span></li></ul></div></div>
+<div class="rest"><ul><li><span class='chip avoid'>À éviter</span><span class='mp'>Engine</span><span class='why'>Eux 5-3. 82-100 contre eux en scrim.</span></li><li><span class='chip neutral'>Neutre</span><span class='mp'>Reef Point</span><span class='why'>1-1 contre eux, un 5-100 et un 100-34 : trop volatil.</span></li></ul></div>
+<p class="theirs"><b>Leur ban probable :</b> Ceres et/ou Silva : ils les ont perdues lourdement contre nous. Si les deux tombent, on joue Atlantis et on garde Reef Point en dernier recours.</p>
+</article></div>
+</section>
+
+<section>
+  <h2>Bilan par map, pool de septembre</h2>
+  <div class="scroll"><table class="data"><thead><tr><th></th><th scope="col">Atlantis</th><th scope="col">Ceres</th><th scope="col">Engine</th><th scope="col">Outlaw</th><th scope="col">Polaris</th><th scope="col">Reef Point</th><th scope="col">Silva</th><th scope="col">The Cliff</th></tr></thead><tbody><tr><th scope='row'>Leveling</th><td class='h-p1'>5-3 <span class='mg'>-1</span><span class='nn'>8 maps</span></td><td class='h-p2'>5-1 <span class='mg'>+25</span><span class='nn'>6 maps</span></td><td class='h-p1'>4-2 <span class='mg'>+9</span><span class='nn'>6 maps</span></td><td class='h-0'>3-4 <span class='mg'>+13</span><span class='nn'>7 maps</span></td><td class='h-p2'>9-4 <span class='mg'>+22</span><span class='nn'>13 maps</span></td><td class='h-n2'>2-5 <span class='mg'>-27</span><span class='nn'>7 maps</span></td><td class='h-p1'>4-3 <span class='mg'>+6</span><span class='nn'>7 maps</span></td><td class='h-n2'>1-6 <span class='mg'>-49</span><span class='nn'>7 maps</span></td></tr><tr><th scope='row'>WYRM</th><td class='h-n1'>3-6 <span class='mg'>-21</span><span class='nn'>9 maps</span></td><td class='h-p1'>1-1 <span class='mg'>+23</span><span class='nn'>2 maps</span></td><td class='h-n1'>4-7 <span class='mg'>+0</span><span class='nn'>11 maps</span></td><td class='h-n2'>0-1 <span class='mg'>-60</span><span class='nn'>1 maps</span></td><td class='h-n2'>2-3 <span class='mg'>-37</span><span class='nn'>5 maps</span></td><td class='h-n2'>1-2 <span class='mg'>-42</span><span class='nn'>3 maps</span></td><td class='h-0'>3-2 <span class='mg'>-3</span><span class='nn'>5 maps</span></td><td class='h-0'>3-4 <span class='mg'>+3</span><span class='nn'>7 maps</span></td></tr><tr><th scope='row'>SARCAL</th><td class='h-n1'>3-4 <span class='mg'>-12</span><span class='nn'>7 maps</span></td><td class='h-n2'>0-2 <span class='mg'>-64</span><span class='nn'>2 maps</span></td><td class='h-0'>5-3 <span class='mg'>-9</span><span class='nn'>8 maps</span></td><td class='h-p1'>2-1 <span class='mg'>+12</span><span class='nn'>3 maps</span></td><td class='h-p2'>6-2 <span class='mg'>+20</span><span class='nn'>8 maps</span></td><td class='h-n1'>1-2 <span class='mg'>-3</span><span class='nn'>3 maps</span></td><td class='h-n1'>3-3 <span class='mg'>-17</span><span class='nn'>6 maps</span></td><td class='h-n2'>2-5 <span class='mg'>-15</span><span class='nn'>7 maps</span></td></tr><tr><th scope='row'>xMatteam</th><td class='h-p2'>6-1 <span class='mg'>+42</span><span class='nn'>7 maps</span></td><td class='h-na'><span class="na">—</span><span class='nn'></span></td><td class='h-p2'>5-1 <span class='mg'>+12</span><span class='nn'>6 maps</span></td><td class='h-na'><span class="na">—</span><span class='nn'></span></td><td class='h-n2'>0-2 <span class='mg'>-84</span><span class='nn'>2 maps</span></td><td class='h-na'><span class="na">—</span><span class='nn'></span></td><td class='h-p1'>1-1 <span class='mg'>+30</span><span class='nn'>2 maps</span></td><td class='h-na'><span class="na">—</span><span class='nn'></span></td></tr></tbody></table></div>
+  <p class="note">Toutes les maps connues de chaque équipe, tous adversaires confondus. Couleur : vert quand l’équipe gagne souvent et avec de la marge, rouge dans le cas contraire. Pour xMatteam, seules les maps de Carolo sont connues (aucun scrim récupéré).</p>
+</section>
+
+<section>
+  <h2>Face-à-face directs</h2>
+  <div class="h2hs"><div class='h2h'><h4>vs WYRM</h4><ul><li class='l'><span class='d'>24/08</span><span class='s'>Carolo</span><span class='m'>Engine</span><span class='sc'>55–100</span></li><li class='w'><span class='d'>24/08</span><span class='s'>Carolo</span><span class='m'>Lunar Outpost*</span><span class='sc'>100–74</span></li><li class='w'><span class='d'>24/08</span><span class='s'>Carolo</span><span class='m'>The Cliff</span><span class='sc'>100–76</span></li></ul></div><div class='h2h'><h4>vs xMatteam</h4><ul><li class='w'><span class='d'>27/07</span><span class='s'>Carolo</span><span class='m'>Helios Station*</span><span class='sc'>100–47</span></li><li class='l'><span class='d'>27/07</span><span class='s'>Carolo</span><span class='m'>Horizon*</span><span class='sc'>94–100</span></li><li class='w'><span class='d'>27/07</span><span class='s'>Carolo</span><span class='m'>Polaris</span><span class='sc'>100–0</span></li></ul></div><div class='h2h'><h4>vs SARCAL</h4><ul><li class='l'><span class='d'>27/07</span><span class='s'>Carolo</span><span class='m'>Helios Station*</span><span class='sc'>81–100</span></li><li class='w'><span class='d'>27/07</span><span class='s'>Carolo</span><span class='m'>Lunar Outpost*</span><span class='sc'>100–51</span></li><li class='l'><span class='d'>27/07</span><span class='s'>Carolo</span><span class='m'>Polaris</span><span class='sc'>91–100</span></li><li class='w'><span class='d'>24/08</span><span class='s'>Carolo</span><span class='m'>Lunar Outpost*</span><span class='sc'>100–51</span></li><li class='w'><span class='d'>24/08</span><span class='s'>Carolo</span><span class='m'>Atlantis</span><span class='sc'>100–88</span></li><li class='l'><span class='d'>12/09</span><span class='s'>Scrim</span><span class='m'>Atlantis</span><span class='sc'>90–100</span></li><li class='w'><span class='d'>12/09</span><span class='s'>Scrim</span><span class='m'>Ceres</span><span class='sc'>100–50</span></li><li class='l'><span class='d'>12/09</span><span class='s'>Scrim</span><span class='m'>Engine</span><span class='sc'>82–100</span></li><li class='l'><span class='d'>12/09</span><span class='s'>Scrim</span><span class='m'>Polaris</span><span class='sc'>53–100</span></li><li class='l'><span class='d'>12/09</span><span class='s'>Scrim</span><span class='m'>Reef Point</span><span class='sc'>5–100</span></li><li class='w'><span class='d'>12/09</span><span class='s'>Scrim</span><span class='m'>Silva</span><span class='sc'>100–1</span></li><li class='l'><span class='d'>12/09</span><span class='s'>Scrim</span><span class='m'>The Cliff</span><span class='sc'>0–100</span></li><li class='l'><span class='d'>12/09</span><span class='s'>Scrim</span><span class='m'>Outlaw</span><span class='sc'>59–100</span></li><li class='w'><span class='d'>12/09</span><span class='s'>Scrim</span><span class='m'>Reef Point</span><span class='sc'>100–34</span></li></ul></div></div>
+  <p class="note">* map sortie du pool de septembre, indiquée pour le contexte.</p>
+</section>
+
+<section>
+  <h2>Sources et limites</h2>
+  <div class="method">
+    <div>
+      <h4>D’où viennent les chiffres</h4>
+      <ul>
+        <li><b>Carolo League</b> (competitive.eva.gg) : les 5 éditions de mai à septembre, 78 matchs et la map de chaque manche.</li>
+        <li><b>API publique EVA</b>, saison 9 : les 10 derniers matchs de chaque joueur Leveling, WYRM et SARCAL, soit les scrims du 24/08 au 24/09. Une équipe n’est comptée que si au moins 3 de ses 4 joueurs portent son tag. Les mix sont exclus.</li>
+        <li><b>Règlement</b> Ligue Locale 2026, version du 22/09 : pool et ordre du draft.</li>
+      </ul>
+    </div>
+    <div>
+      <h4>À garder en tête</h4>
+      <ul>
+        <li>Petits échantillons : 1 à 13 maps par case. Un seul résultat ne suffit pas à définir une tendance.</li>
+        <li>En scrim, une équipe teste des choses. On y perd des maps qu’on ne jouerait jamais en officiel.</li>
+        <li>Les adversaires des scrims ne se valent pas : PW, WSB, RHP, DVGA et GNS pèsent lourd dans certains bilans.</li>
+        <li>xMatteam n’a aucune donnée sur Ceres, Reef Point, Outlaw ni The Cliff. Leurs joueurs ne sont pas retrouvables sans leur identifiant EVA complet (Pseudo#1234567).</li>
+        <li>L’API ne garde que les 10 derniers matchs par joueur : les scrims plus anciens ne sont plus visibles.</li>
+      </ul>
+    </div>
+  </div>
+  <p class="note">Généré le 25/09/2026.</p>
+</section>
+</div>
+
+</body>
+</html>

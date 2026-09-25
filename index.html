@@ -31,6 +31,13 @@
   td.links a { color: var(--accent); text-decoration: none; margin-right: 4px; }
   td.links a:hover { text-decoration: underline; }
   .empty { color: var(--muted); padding: 24px 0; }
+  h2 { font-size: 1.1rem; margin: 8px 0 8px; }
+  section.analyses { margin-bottom: 36px; padding: 16px 18px; border: 1px solid var(--border);
+                      border-left: 4px solid var(--accent); border-radius: 6px; }
+  section.analyses h2 { margin-top: 0; }
+  section.analyses .sub { margin: 0 0 8px; color: var(--muted); }
+  .kind { font-size: .8rem; font-weight: 600; text-transform: uppercase; letter-spacing: .04em;
+           color: var(--accent); }
 </style>
 </head>
 <body>
@@ -39,6 +46,18 @@
   <p>11 journée(s) de compétition publiée(s).</p>
 </header>
 <main>
+  <section class="analyses">
+  <h2>Analyses pick/ban · Ligue locale</h2>
+  <p class="sub">Préparation de draft : maps à choisir et à bannir par adversaire.</p>
+  <table><thead><tr><th>Date</th><th>Type</th><th>Compétition</th><th>Analyse</th></tr></thead><tbody>
+        <tr>
+          <td class="date">2026-09-28</td>
+          <td><span class="kind">Pick/ban</span></td>
+          <td>Carolo League — Septembre 2026 (ligue locale Charleroi)</td>
+          <td class="links"><a href="analyses/carolo-2026-09-pickban/">Leveling vs WYRM, xMatteam, SARCAL — maps à pick et à ban (28/09)</a></td>
+        </tr></tbody></table>
+</section>
+<h2>Rapports de journée</h2>
   <table><thead><tr><th>Date</th><th>Équipe</th><th>Saison</th><th>Rapports</th></tr></thead><tbody>
         <tr>
           <td class="date">23 septembre 2026 (à partir de 21h41)</td>
