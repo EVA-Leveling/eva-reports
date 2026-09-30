@@ -108,6 +108,15 @@
     "has_global": true
   },
   {
+    "slug": "2026-07-27-lvl-d1",
+    "date": "2026-07-27",
+    "date_str": "27 juillet 2026",
+    "team_label": "LVL-D1",
+    "season": "Saison 9 (active)",
+    "has_team": true,
+    "has_global": true
+  },
+  {
     "slug": "2026-06-22-lvl-d2",
     "date": "2026-06-22",
     "date_str": "22 juin 2026",
