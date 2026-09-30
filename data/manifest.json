@@ -106,5 +106,14 @@
     "season": "Saison 9 (active)",
     "has_team": true,
     "has_global": true
+  },
+  {
+    "slug": "2026-06-22-lvl-d2",
+    "date": "2026-06-22",
+    "date_str": "22 juin 2026",
+    "team_label": "LVL-D2",
+    "season": "Saison 8",
+    "has_team": true,
+    "has_global": true
   }
 ]
